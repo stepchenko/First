@@ -1,0 +1,15 @@
+﻿@model QueueStepchenko.Models.User
+
+@if (Model.RoleName == "client")
+{
+    @Html.ActionLink(Model.Name, "Register", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+}
+else
+{
+    @Html.ActionLink(Model.Name, "Register", "Employee", routeValues: null, htmlAttributes: new { id = "loginLink" })
+}
+
+
+@Html.ActionLink("Выйти", "LogOff", "Account", routeValues: null, htmlAttributes: new { id = "logoffLink" })
+
+

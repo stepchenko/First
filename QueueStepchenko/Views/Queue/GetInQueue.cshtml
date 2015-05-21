@@ -1,0 +1,27 @@
+﻿@model QueueStepchenko.Models.Queue
+
+<h3>
+    N
+    @Html.DisplayTextFor(model => model.Number)
+</h3>
+<h4>
+    Операция:
+    @Html.DisplayTextFor(model => model.Operation.Name)
+</h4>
+ <h5>
+     Ожидают клиентов:
+     <span id="clientsInHead_@Model.Operation.Id">
+         @Html.DisplayTextFor(model => model.Operation.CountClients)
+     </span>
+     <br /> <br />
+     @*@Ajax.ActionLink("Покинуть очередь", "GetOutQueue", new { id = Model.Id }, new AjaxOptions { UpdateTargetId = "DivMain" })*@
+</h5>
+     @using (Ajax.BeginForm("GetOutQueue", "Queue", new { id = Model.Id }, new AjaxOptions { UpdateTargetId = "DivMain" }))
+     {
+        <input type="submit" value="Покинуть очередь" class="btn btn-default" />
+     }
+ 
+
+   
+@*@Scripts.Render("~/scripts/jquery-1.10.2.min.js")
+@Scripts.Render("~/scripts/jquery.unobtrusive-ajax.min.js")*@

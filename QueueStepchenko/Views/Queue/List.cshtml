@@ -1,0 +1,24 @@
+﻿@model IEnumerable<QueueStepchenko.Models.Queue>
+
+
+@foreach (var item in Model)
+{
+    <div id="queue_@item.Id">
+        <a href="javascript:return false;" class="employeeLink" onclick="$(this).siblings('div.details').show();">
+            @item.Number
+            &nbsp;&nbsp;&nbsp;
+            @item.Client.Name 
+        </a>
+        <div class="details" >
+            @if (item.StateClient == QueueStepchenko.Models.StatesClient.WaitExtra)
+            {
+                <span>
+                    Вне очереди
+                </span>
+            }
+            @item.Operation.Name
+            <a href="javascript:return false;" class="hideDiv" onclick="$(this).parent().hide();">Скрыть</a>
+        </div>
+    </div>
+ 
+}

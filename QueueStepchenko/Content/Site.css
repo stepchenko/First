@@ -1,0 +1,210 @@
+﻿
+body {
+	font: 12px/18px Arial, sans-serif;
+} 
+
+#maincontainer {
+    margin: 0px 10px;
+}
+.wrapper {
+	min-width: 750px;
+	max-width: 2000px;
+	margin: 0 auto;
+}
+
+
+/* Header
+-----------------------------------------------------------------------------*/
+.header {
+	height: 220px;
+	background: #FFE680;
+}
+
+#DivMain {
+    float: left;
+	width: 75%;
+	position: relative;
+	background:inherit;
+	padding: 5px;
+    
+}
+
+#LoginHead {
+    float: right;
+	width: 24%;
+	position: relative;
+	background: inherit;
+    padding: 5px;
+    text-align:right;
+}
+
+#LoginMain{
+    float: right;
+	width: 24%;
+	position: relative;
+	background: inherit;
+    padding: 5px;
+}
+#LoginMain div.form-horizontal{
+    border: thin groove gray;
+    background: #eee3e3;
+    padding: 5px;
+}
+
+
+/* Middle
+-----------------------------------------------------------------------------*/
+.middle {
+	border-left: 250px solid #B5E3FF;
+	border-right: 300px solid #B5E3FF;
+	position: relative;
+}
+.middle:after {
+	display: table;
+	clear: both;
+	content: '';
+}
+.container {
+	width: 100%;
+	float: left;
+	overflow: hidden;
+	margin-right: -100%;
+}
+.content {
+	padding: 20px;
+}
+
+tr.trHeader {
+    background: #B5E3FF; 
+}
+tr.trHover:hover {
+    background: #B5E3FF; 
+    color: blue;
+   }
+
+/* Left Sidebar
+-----------------------------------------------------------------------------*/
+.left-sidebar {
+	float: left;
+	width: 250px;
+	position: relative;
+	background: #B5E3FF;
+	left: -250px;
+    padding: 20px;
+}
+
+div.details {
+    font-weight:normal;
+    color: black;
+    padding: 0  1em;
+    font-style:italic;
+    display:none;
+}
+
+div.details_show {
+    font-weight:normal;
+    color: black;
+    padding: 0  1em;
+    font-style:italic;
+}
+
+
+A.employeeLink
+{
+    font: bold 1.1em "Arial Narrow","Franklin Gothic Medium",Arial; 
+    display: block;
+    text-decoration: none; 
+    padding: .6em; 
+    color: green;
+    border-bottom: 1px solid silver;
+}
+A.employeeLink.selected { 
+    background-color: #666; 
+    color: White; 
+}
+A.employeeLink:hover {
+    background-color: #CCC; 
+}
+A.employeeLink.selected:hover { 
+    background-color: #666; 
+}
+
+A.employeeOffLink
+{
+    font: normal 1.1em "Arial Narrow","Franklin Gothic Medium",Arial; 
+    display: block;
+    text-decoration: none; 
+    padding: .6em; 
+    color: black;
+    border-bottom: 1px solid silver;
+}
+A.employeeOffLink.selected { 
+    background-color: #666; 
+    color: White; 
+}
+A.employeeOffLink:hover {
+    background-color: #CCC; 
+}
+A.employeeOffLink.selected:hover { 
+    background-color: #666; 
+}
+
+span.employeeLink
+{
+    font: normal 1.1em "Arial Narrow","Franklin Gothic Medium",Arial; 
+    display: block;
+    text-decoration: none; 
+    padding: .6em; 
+    color:gray;
+    border-bottom: 1px solid silver;
+}
+
+a.hideDiv{
+    font-size:.9em;
+    color: blue;
+    display: normal;
+    text-decoration:underline; 
+    padding: 0; 
+    margin-left:155px;
+    border:none;
+    background-color:none;
+}
+
+
+
+
+/* Right Sidebar
+-----------------------------------------------------------------------------*/
+.right-sidebar {
+	float: right;
+	margin-right: -300px;
+	width: 300px;
+	position: relative;
+	background: #B5E3FF;
+    padding: 20px;
+}
+
+
+/* Footer
+-----------------------------------------------------------------------------*/
+.footer {
+	height: 40px;
+	background: #BFF08E;
+    text-align:center;
+    padding-top:10px;
+
+}
+
+/*-----------------------------------------------------------------------------*/
+
+.likeLink {
+    border:none;
+    background:inherit;
+    color:#428bca;
+}
+
+.likeDisabledLink  {
+    border:none;
+    background:inherit;
+    color:gray;
+}

@@ -1,0 +1,54 @@
+﻿@model IEnumerable<QueueStepchenko.Models.Operation>
+
+
+<table id="tblOperations" class="table">
+    <tr class="trHeader">
+        <th>
+            Наименование
+        </th>
+        <th class="text-center">
+            Сотрудников обслуживают
+        </th>
+        <th class="text-center">
+            Клиентов ожидают
+        </th>
+        <th></th>
+    </tr>
+        @foreach (var item in Model)
+        {
+            <tr class="trHover">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.CountEmployees)
+                </td>
+                <td class="text-center">
+                    <span id="clients_@item.Id">
+                        @Html.DisplayFor(modelItem => item.CountClients)
+                    </span>
+                </td>
+                <td>
+                    @if (ViewBag.isClient) 
+                    { 
+                        using (Ajax.BeginForm("GetInQueue", "Queue", new { id = item.Id }, new AjaxOptions 
+                         { UpdateTargetId = "DivMain", Confirm="dsskkds"}))
+                        {
+                            if(ViewBag.isClientInQueue)
+                            { 
+                                <input type="submit" value="Стать в очередь" disabled ="disabled" class="likeDisabledLink"/>
+                            }
+                            else
+                            {
+                                <input type="submit" value="Стать в очередь" class="likeLink" />
+                            }
+
+                        }
+                    }
+                </td>
+             </tr>
+            }
+
+
+    </table>
+

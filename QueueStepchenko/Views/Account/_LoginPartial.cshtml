@@ -1,0 +1,28 @@
+﻿<table style="float:right;">
+    <tr>
+        <td>
+            @using (Ajax.BeginForm("Login", "Account", new { }, new AjaxOptions { UpdateTargetId = "LoginMain", HttpMethod = "Get" }, new { @id = "loginLink" }))
+            {
+                <input type="submit" value="Вход" class="likeLink" />
+            }
+        </td>
+        <td>
+            @Html.ActionLink("Регистрация", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
+        </td>
+    </tr>
+</table>
+
+
+ 
+
+
+@*@Ajax.ActionLink("Вход", "Login", "Account",  new { }, new AjaxOptions { UpdateTargetId = "LoginMain" }, new { @id = "loginLink" })*@
+
+
+
+
+@*@Scripts.Render("~/scripts/jquery-1.10.2.min.js")
+@Scripts.Render("~/scripts/jquery.unobtrusive-ajax.min.js")*@
+
+
+

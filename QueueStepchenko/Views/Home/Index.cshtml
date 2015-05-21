@@ -1,0 +1,50 @@
+﻿
+@using QueueStepchenko.Models;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    @Styles.Render("~/Content/css")
+}
+
+
+
+<div id="maincontainer">
+   
+    <div id="DivMain">
+        @{ Html.RenderAction("Main", "Queue"); }
+    </div>
+
+    <div id="LoginHead">
+        @{ Html.RenderAction("LoginPartial", "Account"); }
+    </div>
+
+    <div id="LoginMain">
+        
+    </div>
+
+
+    @section Middle {
+
+        @{ Html.RenderAction("List", "Operation"); }
+    }
+
+    @section LeftSidebar {
+
+        @{ Html.RenderAction("List", "Employee"); }
+       
+    }
+
+    @section RightSidebar {
+
+        @{ Html.RenderAction("List", "Queue"); }
+    }
+
+   
+    
+</div>
+
+
+        
+
+ 
+
