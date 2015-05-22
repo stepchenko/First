@@ -92,17 +92,17 @@ namespace QueueStepchenko.Controllers
         {
             Operation operation =_queueRepository.GetOut(Id,StatesClient.GetOut);
 
-            _hub.GetOutQueue(HttpContext.User.Identity.Name, Id, operation.CountClients, operation.Id);
+            //_hub.GetOutQueue(HttpContext.User.Identity.Name, Id, operation.CountClients, operation.Id);
 
-            // //QueueHub Hub = new QueueHub();
-            //string connectionId = _hub.GetConnectionIdByLogin(HttpContext.User.Identity.Name);
-            //var context = GlobalHost.ConnectionManager.GetHubContext<QueueHub>();
-            //if (!string.IsNullOrEmpty(connectionId))
-            //{
-            //    context.Clients.Client(connectionId).enabledBtnInQueue();
-            //};
-            //context.Clients.All.changeCountClients(operation.CountClients, operation.Id);
-            //context.Clients.All.removeClientFromQueue("#queue_" + Id.ToString());
+            //QueueHub Hub = new QueueHub();
+            string connectionId = _hub.GetConnectionIdByLogin(HttpContext.User.Identity.Name);
+            var context = GlobalHost.ConnectionManager.GetHubContext<QueueHub>();
+            if (!string.IsNullOrEmpty(connectionId))
+            {
+                context.Clients.Client(connectionId).enabledBtnInQueue();
+            };
+            context.Clients.All.changeCountClients(operation.CountClients, operation.Id);
+            context.Clients.All.removeClientFromQueue("#queue_" + Id.ToString());
 
             return PartialView("Label");
         }
