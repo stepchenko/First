@@ -1,0 +1,94 @@
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\bin\QueueStepchenko.dll.config
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\bin\QueueStepchenko.dll
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\bin\QueueStepchenko.pdb
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\bin\Antlr3.Runtime.dll
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\bin\Autofac.dll
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\bin\Autofac.Integration.Mvc.dll
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\bin\Newtonsoft.Json.dll
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\bin\System.Web.Helpers.dll
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\bin\System.Web.Mvc.dll
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\bin\System.Web.Optimization.dll
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\bin\System.Web.Razor.dll
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\bin\System.Web.WebPages.dll
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\bin\System.Web.WebPages.Razor.dll
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\bin\WebGrease.dll
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\bin\Autofac.xml
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\bin\Autofac.Integration.Mvc.xml
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\bin\System.Web.Helpers.xml
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\bin\System.Web.Mvc.xml
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\bin\System.Web.Optimization.xml
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\bin\System.Web.Razor.xml
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\bin\System.Web.WebPages.xml
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\bin\System.Web.WebPages.Razor.xml
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\bin\Antlr3.Runtime.pdb
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\bin\Newtonsoft.Json.xml
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\obj\Debug\QueueStepchenko.dll
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\obj\Debug\QueueStepchenko.pdb
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\bin\Microsoft.AspNet.SignalR.Core.dll
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\bin\Microsoft.Owin.dll
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\bin\Microsoft.Owin.Security.dll
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\bin\Owin.dll
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\bin\Microsoft.AspNet.SignalR.Core.xml
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\bin\Microsoft.Owin.xml
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\bin\Microsoft.Owin.Security.xml
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\bin\EntityFramework.dll
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\bin\EntityFramework.SqlServer.dll
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\bin\System.Web.Providers.dll
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\bin\EntityFramework.xml
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\bin\EntityFramework.SqlServer.xml
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\bin\System.Web.Providers.xml
+C:\Users\Администратор\documents\visual studio 2013\Projects\QueueStepchenko\QueueStepchenko\obj\Debug\QueueStepchenko.csprojResolveAssemblyReference.cache
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\QueueStepchenko.dll.config
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\QueueStepchenko.dll
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\QueueStepchenko.pdb
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\Antlr3.Runtime.dll
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\Autofac.dll
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\Autofac.Integration.Mvc.dll
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\EntityFramework.dll
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\EntityFramework.SqlServer.dll
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\Microsoft.AspNet.SignalR.Core.dll
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\Microsoft.Owin.dll
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\Microsoft.Owin.Host.SystemWeb.dll
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\Microsoft.Owin.Security.dll
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\Microsoft.Web.Infrastructure.dll
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\Newtonsoft.Json.dll
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\Owin.dll
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\System.Web.Helpers.dll
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\System.Web.Mvc.dll
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\System.Web.Optimization.dll
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\System.Web.Providers.dll
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\System.Web.Razor.dll
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\System.Web.WebPages.Deployment.dll
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\System.Web.WebPages.dll
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\System.Web.WebPages.Razor.dll
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\WebGrease.dll
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\Autofac.xml
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\Autofac.Integration.Mvc.xml
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\EntityFramework.xml
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\EntityFramework.SqlServer.xml
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\Microsoft.AspNet.SignalR.Core.xml
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\Microsoft.Owin.xml
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\Microsoft.Owin.Host.SystemWeb.xml
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\Microsoft.Owin.Security.xml
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\System.Web.Providers.xml
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\System.Web.Helpers.xml
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\System.Web.Mvc.xml
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\System.Web.Optimization.xml
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\System.Web.Razor.xml
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\System.Web.WebPages.xml
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\System.Web.WebPages.Deployment.xml
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\System.Web.WebPages.Razor.xml
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\Antlr3.Runtime.pdb
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\Newtonsoft.Json.xml
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\obj\Debug\QueueStepchenko.dll
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\obj\Debug\QueueStepchenko.pdb
+D:\program\EPAM\QueueStepchenko\QueueStepchenko\obj\Debug\QueueStepchenko.csprojResolveAssemblyReference.cache
