@@ -22,11 +22,12 @@ namespace QueueStepchenko.Controllers
     public class QueueController : Controller
     {
         IRepositoryQueue _queueRepository;
+        IQueueHub _hub;
 
-
-        public QueueController(IRepositoryQueue repo)
+        public QueueController(IRepositoryQueue repo, IQueueHub hub)
         {
             _queueRepository = repo;
+            _hub = hub;
         }
 
        
@@ -73,8 +74,8 @@ namespace QueueStepchenko.Controllers
               Queue queue = _queueRepository.GetIn(HttpContext.User.Identity.Name, id, StatesClient.Wait);
 
                 var context = GlobalHost.ConnectionManager.GetHubContext<QueueHub>();
-                QueueHub Hub = new QueueHub();
-                string connectionId = Hub.GetConnectionIdByLogin(HttpContext.User.Identity.Name);
+                //QueueHub Hub = new QueueHub();
+                string connectionId = _hub.GetConnectionIdByLogin(HttpContext.User.Identity.Name);
                 if (!string.IsNullOrEmpty(connectionId))
                 {
                     context.Clients.Client(connectionId).disabledBtnInQueue();
@@ -91,15 +92,17 @@ namespace QueueStepchenko.Controllers
         {
             Operation operation =_queueRepository.GetOut(Id,StatesClient.GetOut);
 
-            var context = GlobalHost.ConnectionManager.GetHubContext<QueueHub>();
-            QueueHub Hub = new QueueHub();
-            string connectionId = Hub.GetConnectionIdByLogin(HttpContext.User.Identity.Name);
-            if (!string.IsNullOrEmpty(connectionId))
-            {
-                context.Clients.Client(connectionId).enabledBtnInQueue();
-            };
-            context.Clients.All.changeCountClients(operation.CountClients, operation.Id);
-            context.Clients.All.removeClientFromQueue("#queue_" + Id.ToString());
+            _hub.GetOutQueue(HttpContext.User.Identity.Name, Id, operation.CountClients, operation.Id);
+
+            // //QueueHub Hub = new QueueHub();
+            //string connectionId = _hub.GetConnectionIdByLogin(HttpContext.User.Identity.Name);
+            //var context = GlobalHost.ConnectionManager.GetHubContext<QueueHub>();
+            //if (!string.IsNullOrEmpty(connectionId))
+            //{
+            //    context.Clients.Client(connectionId).enabledBtnInQueue();
+            //};
+            //context.Clients.All.changeCountClients(operation.CountClients, operation.Id);
+            //context.Clients.All.removeClientFromQueue("#queue_" + Id.ToString());
 
             return PartialView("Label");
         }
@@ -146,12 +149,12 @@ namespace QueueStepchenko.Controllers
             Interlocked.Increment(ref State.NumberCall);
 
             var context = GlobalHost.ConnectionManager.GetHubContext<QueueHub>();
-            QueueHub Hub = new QueueHub();
-            string connectionId = Hub.GetConnectionIdByLogin(State.EmployeeName);
-            if (!string.IsNullOrEmpty(connectionId))
-            {
-                context.Clients.Client(connectionId).callClient();
-            };
+            //QueueHub Hub = new QueueHub();
+            //string connectionId = Hub.GetConnectionIdByLogin(State.EmployeeName);
+            //if (!string.IsNullOrEmpty(connectionId))
+            //{
+            //    context.Clients.Client(connectionId).callClient();
+            //};
 
             if (State.NumberCall==3)
             // Dispose Requested.

@@ -42,17 +42,18 @@
     };
 
     queue.client.removeClientFromQueue = function (idQueue) {
+        //alert(idQueue);
         $(idQueue).remove();
     };
 
     queue.client.addClientInQueue = function (prevId, qId, qNumber, qOperationName, qClientName) {
         // $(queue.prevId).after('<div id="queue_' + queue.Id + '"> <a href="javascript:return false;" class="employeeLink" onclick="$(this).siblings(' + "'div.details'" + ').show();">' + queue.Number + '&nbsp;&nbsp;&nbsp;' + queue.Client.Name + ' </a></div>');
         // var obj = jQuery.parseJSON(queue);
-        if (!$("div").is(qId)) {
-            $(prevId).after('<div id="' + qId + '"> <a href="javascript:return false;" class="employeeLink" onclick="$(this).siblings(' +
+        //alert(qId);
+        $(prevId).after('<div id="' + qId + '"> <a href="javascript:return false;" class="employeeLink" onclick="$(this).siblings(' +
                 "'div.details'" + ').show();">' + qNumber + '&nbsp;&nbsp;&nbsp;' + qClientName + ' </a> <div class="details"> ' +
                 qOperationName + ' <a href="javascript:return false;" class="hideDiv" onclick="$(this).parent().hide();">Скрыть</a> </div></div>')
-        }
+        
     };
 
     // Открываем соединение

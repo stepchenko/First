@@ -156,6 +156,7 @@
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\EmployeeRepository.cs" />
     <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\IQueueHub.cs" />
     <Compile Include="Models\IRepositoryEmployee.cs" />
     <Compile Include="Models\IRepositoryOperation.cs" />
     <Compile Include="Models\IRepositoryQueue.cs" />

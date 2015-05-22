@@ -89,7 +89,7 @@ namespace QueueStepchenko.Models
             return userId;
         }
 
-        public int CheckUser(string login, string password)
+        public int LogInUser(string login, string password)
         {
 
             if (string.IsNullOrEmpty(login))
@@ -106,7 +106,7 @@ namespace QueueStepchenko.Models
 
             SqlConnection connection = new SqlConnection(conString);
 
-            SqlCommand command = new SqlCommand("CheckUser", connection);
+            SqlCommand command = new SqlCommand("LogInUser", connection);
             command.CommandType = System.Data.CommandType.StoredProcedure;
 
             command.Parameters.Add("@login", System.Data.SqlDbType.VarChar).Value = login;
@@ -118,19 +118,70 @@ namespace QueueStepchenko.Models
 
             using (connection)
             {
-                var result = command.ExecuteScalar();
-                if (result == null)
-                {
-                    userId = 0;
-                }
-                else
-                {
-                    userId = (int)result;
-                }
+                
+                userId = (int) command.ExecuteScalar();
 
             };
 
             return userId;
+        }
+
+
+        public void SetActiveForUser(string login)
+        {
+
+            if (string.IsNullOrEmpty(login))
+            {
+                throw new ArgumentException("Login is null or empty");
+            };
+
+            string conString = Methods.GetStringConnection();
+
+            SqlConnection connection = new SqlConnection(conString);
+
+            SqlCommand command = new SqlCommand("SetActiveForUser", connection);
+            command.CommandType = System.Data.CommandType.StoredProcedure;
+
+            command.Parameters.Add("@login", System.Data.SqlDbType.VarChar).Value = login;
+           
+            connection.Open();
+
+            using (connection)
+            {
+
+                command.ExecuteNonQuery();
+
+            }
+
+        }
+
+
+        public void SetDeActiveForUser(string login)
+        {
+
+            if (string.IsNullOrEmpty(login))
+            {
+                throw new ArgumentException("Login is null or empty");
+            };
+
+            string conString = Methods.GetStringConnection();
+
+            SqlConnection connection = new SqlConnection(conString);
+
+            SqlCommand command = new SqlCommand("SetDeActiveForUser", connection);
+            command.CommandType = System.Data.CommandType.StoredProcedure;
+
+            command.Parameters.Add("@login", System.Data.SqlDbType.VarChar).Value = login;
+
+            connection.Open();
+
+            using (connection)
+            {
+
+                command.ExecuteNonQuery();
+
+            }
+
         }
 
         public bool isFreeLogin(string login)

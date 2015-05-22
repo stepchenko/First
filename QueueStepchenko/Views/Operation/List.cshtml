@@ -31,8 +31,7 @@
                 <td>
                     @if (ViewBag.isClient) 
                     { 
-                        using (Ajax.BeginForm("GetInQueue", "Queue", new { id = item.Id }, new AjaxOptions 
-                         { UpdateTargetId = "DivMain", Confirm="dsskkds"}))
+                        using (Ajax.BeginForm("GetInQueue", "Queue", new { id = item.Id }, new AjaxOptions { UpdateTargetId = "DivMain" }))
                         {
                             if(ViewBag.isClientInQueue)
                             { 

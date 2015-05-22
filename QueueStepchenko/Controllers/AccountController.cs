@@ -54,7 +54,7 @@ namespace QueueStepchenko.Controllers
         {
             if (ModelState.IsValid)
             {
-                int userId = _userRepository.CheckUser(usermodel.Login, usermodel.Password); 
+                int userId = _userRepository.LogInUser(usermodel.Login, usermodel.Password); 
                 if (userId>0)
                 {
                     FormsAuthentication.SetAuthCookie(usermodel.Login, true);

@@ -7,6 +7,7 @@ using Autofac;
 using Autofac.Core;
 using Autofac.Integration.Mvc;
 using QueueStepchenko.Models;
+using QueueStepchenko.Hubs;
 
 namespace QueueStepchenko.Utils
 {
@@ -26,6 +27,8 @@ namespace QueueStepchenko.Utils
             builder.RegisterType<EmployeeRepository>().As<IRepositoryEmployee>().InstancePerRequest(); ;
             builder.RegisterType<UserRepository>().As<IRepositoryUser>().InstancePerRequest();
             builder.RegisterType<QueueRepository>().As<IRepositoryQueue>().InstancePerRequest();
+
+            builder.RegisterInstance(new QueueHub()).As<IQueueHub>();
 
             // создаем новый контейнер с теми зависимостями, которые определены выше
             var container = builder.Build();
