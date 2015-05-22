@@ -81,7 +81,7 @@ namespace QueueStepchenko.Controllers
                     context.Clients.Client(connectionId).disabledBtnInQueue();
                 };
                 context.Clients.All.changeCountClients(queue.Operation.CountClients, queue.Operation.Id);
-                context.Clients.All.addClientInQueue("#queue_" + queue.PrevId.ToString(), "#queue_" + queue.Id.ToString(), queue.Number, queue.Operation.Name, queue.Client.Name);
+                context.Clients.All.addClientInQueue("queue_" + queue.PrevId.ToString(), "queue_" + queue.Id.ToString(), queue.Number, queue.Operation.Name, queue.Client.Name);
 
             
                 return PartialView(queue);
@@ -102,7 +102,7 @@ namespace QueueStepchenko.Controllers
                 context.Clients.Client(connectionId).enabledBtnInQueue();
             };
             context.Clients.All.changeCountClients(operation.CountClients, operation.Id);
-            context.Clients.All.removeClientFromQueue("#queue_" + Id.ToString());
+            context.Clients.All.removeClientFromQueue("queue_" + Id.ToString());
 
             return PartialView("Label");
         }

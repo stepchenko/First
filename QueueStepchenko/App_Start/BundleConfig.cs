@@ -14,10 +14,8 @@ namespace QueueStepchenko
                                "~/Scripts/modernizr-*",
                                "~/Scripts/bootstrap.js",
                                "~/Scripts/respond.js",
-                               "~/Scripts/jquery-1.10.2.min.js",
                                "~/Scripts/jquery.unobtrusive-ajax.js",
-                               "~/Scripts/jquery.signalR-2.2.0.min.js",
-                               "~/Scripts/util.js"
+                               "~/Scripts/jquery.signalR-2.2.0.min.js"
                                ));
 
            

@@ -15,14 +15,6 @@ namespace QueueStepchenko
 {
     public class MvcApplication : System.Web.HttpApplication
     {
-        //IRepositoryUser _userRepository;
-
-        //public MvcApplication(IRepositoryUser repo)
-        //{
-        //    _userRepository = repo;
-        //}
-
-
         protected void Application_Start()
         {
             AutofacConfig.ConfigureContainer();
@@ -31,20 +23,25 @@ namespace QueueStepchenko
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+
+            //this.AuthenticateRequest += (s, e) => { HttpContext.Current.Session["user"] = HttpContext.Current.User.Identity.Name; };
         }
 
-        protected void Session_End()
+        protected void Session_End(object sender, EventArgs e)
         {
-            //int userId = _userRepository.LogOffUser(HttpContext.Current.User.Identity.Name);
+            IRepositoryUser _userRepository = DependencyResolver.Current.GetService<IRepositoryUser>();
 
-            //if (HttpContext.Current.User.IsInRole("employee"))
-            //{
-            //    var context = GlobalHost.ConnectionManager.GetHubContext<QueueHub>();
+            int userId = _userRepository.LogOffUser((string)Session["user"]);
 
-            //    context.Clients.All.logoffEmployee("#id_" + userId.ToString());
-            //};
+            if (HttpContext.Current.User.IsInRole("employee"))
+            {
+                var context = GlobalHost.ConnectionManager.GetHubContext<QueueHub>();
 
-            //FormsAuthentication.SignOut();
+                context.Clients.All.logoffEmployee("#id_" + userId.ToString());
+            };
+
+            FormsAuthentication.SignOut();
 
         }
     }

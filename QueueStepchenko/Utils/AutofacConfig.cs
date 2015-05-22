@@ -28,7 +28,7 @@ namespace QueueStepchenko.Utils
             builder.RegisterType<UserRepository>().As<IRepositoryUser>().InstancePerRequest();
             builder.RegisterType<QueueRepository>().As<IRepositoryQueue>().InstancePerRequest();
 
-            builder.RegisterInstance(new QueueHub()).As<IQueueHub>();
+            builder.RegisterType<QueueHub>().As<IQueueHub>().InstancePerRequest();
 
             // создаем новый контейнер с теми зависимостями, которые определены выше
             var container = builder.Build();

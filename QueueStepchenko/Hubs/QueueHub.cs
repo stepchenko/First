@@ -12,13 +12,12 @@ namespace QueueStepchenko.Hubs
     {
        static List<UserHub> Users = new List<UserHub>();
 
-       //IRepositoryUser _repositoryUser;
+       IRepositoryUser _repositoryUser;
 
-       // public QueueHub (IRepositoryUser repo)
-       //{
-       //    _repositoryUser = repo;
-       //}
-
+       public QueueHub(IRepositoryUser repo)
+       {
+           _repositoryUser = repo;
+       }
 
        public void CallClient()
        {
@@ -31,16 +30,21 @@ namespace QueueStepchenko.Hubs
            }
        }
 
+       public override System.Threading.Tasks.Task OnConnected()
+       {
+            
+           return base.OnConnected();
+       }
 
         public void Connect()
         {
-            if(Context.User.Identity.IsAuthenticated)
+           if(Context.User.Identity.IsAuthenticated)
             {
                 UserHub user = new UserHub();
                 user.ConnectionId = Context.ConnectionId;
                 user.Login = Context.User.Identity.Name;
                 Users.Add(user);
-               // _repositoryUser.SetActiveForUser(user.Login);
+                _repositoryUser.SetActiveForUser(user.Login);
 
             }
         }
@@ -73,7 +77,7 @@ namespace QueueStepchenko.Hubs
                 Clients.Client(connectionId).enabledBtnInQueue();
             };
             Clients.All.changeCountClients(countClients, operationId);
-            Clients.All.removeClientFromQueue("#queue_" + queueId.ToString());
+            Clients.All.removeClientFromQueue("queue_" + queueId.ToString());
 
         }
 
@@ -83,7 +87,7 @@ namespace QueueStepchenko.Hubs
             if (user != null)
             {
                 Users.Remove(user);
-               // _repositoryUser.SetDeActiveForUser(user.Login);
+                _repositoryUser.SetDeActiveForUser(user.Login);
             }
 
             return base.OnDisconnected(stopCalled);
