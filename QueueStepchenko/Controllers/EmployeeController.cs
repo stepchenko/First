@@ -27,15 +27,14 @@ namespace QueueStepchenko.Controllers
 
         public PartialViewResult OperationsByEmployee(int id)
         {
-            Employee empl = (Employee)_employeeRepository.Elements.First(e => e.EmployeeId == id);
-           
-            empl.Operations = empl.GetOperationsById(id);
-            if(empl.Operations == null || empl.Operations.Count==0)
+            List<Operation> operations = _employeeRepository.GetOperationsById(id);
+
+            if (operations == null || operations.Count == 0)
             {
-                empl.Operations.Add(new Operation() { Name = "Операции отсутствуют" });
+                operations.Add(new Operation() { Name = "Операции отсутствуют" });
             };
-     
-            return PartialView(empl.Operations);
+
+            return PartialView(operations);
         }
 
         public ActionResult Register()

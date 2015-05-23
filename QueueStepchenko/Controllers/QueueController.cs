@@ -74,14 +74,13 @@ namespace QueueStepchenko.Controllers
               Queue queue = _queueRepository.GetIn(HttpContext.User.Identity.Name, id, StatesClient.Wait);
 
                 var context = GlobalHost.ConnectionManager.GetHubContext<QueueHub>();
-                //QueueHub Hub = new QueueHub();
                 string connectionId = _hub.GetConnectionIdByLogin(HttpContext.User.Identity.Name);
                 if (!string.IsNullOrEmpty(connectionId))
                 {
                     context.Clients.Client(connectionId).disabledBtnInQueue();
                 };
                 context.Clients.All.changeCountClients(queue.Operation.CountClients, queue.Operation.Id);
-                context.Clients.All.addClientInQueue("queue_" + queue.PrevId.ToString(), "queue_" + queue.Id.ToString(), queue.Number, queue.Operation.Name, queue.Client.Name);
+                context.Clients.All.addClientInQueue(queue.PrevId, queue.Id, queue.Number, queue.Operation.Name, queue.Client.Name);
 
             
                 return PartialView(queue);
@@ -92,9 +91,7 @@ namespace QueueStepchenko.Controllers
         {
             Operation operation =_queueRepository.GetOut(Id,StatesClient.GetOut);
 
-            //_hub.GetOutQueue(HttpContext.User.Identity.Name, Id, operation.CountClients, operation.Id);
 
-            //QueueHub Hub = new QueueHub();
             string connectionId = _hub.GetConnectionIdByLogin(HttpContext.User.Identity.Name);
             var context = GlobalHost.ConnectionManager.GetHubContext<QueueHub>();
             if (!string.IsNullOrEmpty(connectionId))
@@ -102,7 +99,7 @@ namespace QueueStepchenko.Controllers
                 context.Clients.Client(connectionId).enabledBtnInQueue();
             };
             context.Clients.All.changeCountClients(operation.CountClients, operation.Id);
-            context.Clients.All.removeClientFromQueue("queue_" + Id.ToString());
+            context.Clients.All.removeClientFromQueue(Id);
 
             return PartialView("Label");
         }
@@ -149,12 +146,12 @@ namespace QueueStepchenko.Controllers
             Interlocked.Increment(ref State.NumberCall);
 
             var context = GlobalHost.ConnectionManager.GetHubContext<QueueHub>();
-            //QueueHub Hub = new QueueHub();
-            //string connectionId = Hub.GetConnectionIdByLogin(State.EmployeeName);
-            //if (!string.IsNullOrEmpty(connectionId))
-            //{
-            //    context.Clients.Client(connectionId).callClient();
-            //};
+           
+            string connectionId = _hub.GetConnectionIdByLogin(State.EmployeeName);
+            if (!string.IsNullOrEmpty(connectionId))
+            {
+                context.Clients.Client(connectionId).callClient();
+            };
 
             if (State.NumberCall==3)
             // Dispose Requested.

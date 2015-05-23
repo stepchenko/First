@@ -21,7 +21,7 @@ namespace QueueStepchenko.Models
             throw new NotImplementedException();
         }
 
-        public List<Operation> GetList(string login)
+        public List<Operation> GetList()
         {
             string conString = Methods.GetStringConnection();
 
@@ -29,8 +29,6 @@ namespace QueueStepchenko.Models
 
             SqlCommand command = new SqlCommand("SelectOperations", connection);
             command.CommandType = System.Data.CommandType.StoredProcedure;
-
-            command.Parameters.Add("@login", System.Data.SqlDbType.VarChar).Value = login;
 
             connection.Open();
 

@@ -19,7 +19,7 @@ namespace QueueStepchenko.Controllers
         
         public PartialViewResult List()
         {
-            List<Operation> Operations = _operationRepository.GetList(HttpContext.User.Identity.Name);
+            List<Operation> Operations = _operationRepository.GetList();
             if (HttpContext.User.Identity.IsAuthenticated && HttpContext.User.IsInRole("client"))
             {
                 ViewBag.isClient = true;

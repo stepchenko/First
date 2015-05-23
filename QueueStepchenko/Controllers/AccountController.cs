@@ -4,6 +4,7 @@ using QueueStepchenko.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -12,11 +13,13 @@ namespace QueueStepchenko.Controllers
 {
     public class AccountController : Controller
     {
-         IRepositoryUser _userRepository;
+        IRepositoryUser _userRepository;
+        IRepositoryEmployee _employeeRepository;
 
-         public AccountController(IRepositoryUser repo)
+        public AccountController(IRepositoryUser userRepo, IRepositoryEmployee emplRepo) 
         {
-            _userRepository = repo;
+            _userRepository = userRepo;
+            _employeeRepository = emplRepo;
         }
 
 
@@ -54,27 +57,56 @@ namespace QueueStepchenko.Controllers
         {
             if (ModelState.IsValid)
             {
-                int userId = _userRepository.LogInUser(usermodel.Login, usermodel.Password); 
-                if (userId>0)
+                User user= _userRepository.LogInUser(usermodel.Login, usermodel.Password); 
+                if (user == null || user.Id==0)
                 {
-                    FormsAuthentication.SetAuthCookie(usermodel.Login, true);
-                    
-                    var context = GlobalHost.ConnectionManager.GetHubContext<QueueHub>();
-                    context.Clients.All.loginEmployee("#id_"+userId.ToString());
-
-                    return RedirectToAction("Index", "Home");
+                    ModelState.AddModelError("", "Пользователя с таким логином и паролем нет");
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Пользователя с таким логином и паролем нет");
+                    FormsAuthentication.SetAuthCookie(user.Login, true);
+
+                    if (user.RoleName=="employee")
+                    {
+
+                        var context = GlobalHost.ConnectionManager.GetHubContext<QueueHub>();
+                        context.Clients.All.loginEmployee(user.Id);
+
+                        string json = ListOperationsToJson(user.Id);
+
+                        context.Clients.All.changeCountEmployees(json);
+
+                    };
+                    
                 }
             }
 
             return RedirectToAction("Index", "Home"); ;
         }
 
+
+        private string ListOperationsToJson(int userId)
+        {
+            List<Operation> operations = _employeeRepository.GetOperationsById(userId); 
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("[");
+            foreach (Operation operation in operations)
+            {
+                sb.Append("{\"id\":\"");
+                sb.Append(operation.Id);
+                sb.Append("\",\"count\":\"");
+                sb.Append(operation.CountEmployees);
+                sb.Append("\"},");
+            };
+            sb.Replace(',', ']', sb.Length - 1, 1);
+
+            return sb.ToString();
+        }
+
         public ActionResult Register()
         {
+
             return View();
         }
         //[HttpPost]
@@ -112,10 +144,17 @@ namespace QueueStepchenko.Controllers
         //}
         public ActionResult LogOff()
         {
+            if(HttpContext.User.IsInRole("employee"))
+            {
+                var context = GlobalHost.ConnectionManager.GetHubContext<QueueHub>();
+                int userId = _userRepository.LogOffUser(HttpContext.User.Identity.Name);
+                context.Clients.All.logoffEmployee(userId);
 
-            var context = GlobalHost.ConnectionManager.GetHubContext<QueueHub>();
-            int userId = _userRepository.LogOffUser(HttpContext.User.Identity.Name);
-            context.Clients.All.logoffEmployee("#id_" + userId.ToString());
+                string json = ListOperationsToJson(userId);
+
+                context.Clients.All.changeCountEmployees(json);
+            }
+           
 
             FormsAuthentication.SignOut();
 

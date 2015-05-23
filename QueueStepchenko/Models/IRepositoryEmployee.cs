@@ -14,5 +14,6 @@ namespace QueueStepchenko.Models
         List<Employee> GetList();
         Employee Get(int id);
 
+        List<Operation> GetOperationsById(int id);
     }
 }

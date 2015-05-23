@@ -19,12 +19,12 @@
     };
     queue.client.loginEmployee = function (idLink) {
          
-        $(idLink).attr("class","employeeLink");
+        $("#id_" + idLink).attr("class", "employeeLink");
     };
 
     queue.client.logoffEmployee = function (idLink) {
 
-        $(idLink).attr("class", "employeeOffLink");
+        $("#id_" + idLink).attr("class", "employeeOffLink");
     };
 
     queue.client.disabledBtnInQueue = function () {
@@ -41,16 +41,20 @@
         $("#clientsInHead_" + idOperation).text(count);
     };
 
+    queue.client.changeCountEmployees = function (operations) {
+        var obj = jQuery.parseJSON(operations);
+        $(obj).each(function (index, operation) { $("#empls_" + operation.id).text(operation.count); });
+    };
+
     queue.client.removeClientFromQueue = function (idQueue) {
-        //alert(idQueue);
-        $('#' + idQueue).remove();
+        $('#queue_' + idQueue).remove();
     };
 
     queue.client.addClientInQueue = function (prevId, qId, qNumber, qOperationName, qClientName) {
         // $(queue.prevId).after('<div id="queue_' + queue.Id + '"> <a href="javascript:return false;" class="employeeLink" onclick="$(this).siblings(' + "'div.details'" + ').show();">' + queue.Number + '&nbsp;&nbsp;&nbsp;' + queue.Client.Name + ' </a></div>');
         // var obj = jQuery.parseJSON(queue);
         //alert(qId);
-        $('#' + prevId).after('<div id="' + qId + '"> <a href="javascript:return false;" class="employeeLink" onclick="$(this).siblings(' +
+        $('#queue_' + prevId).after('<div id="queue_' + qId + '"> <a href="javascript:return false;" class="employeeLink" onclick="$(this).siblings(' +
                 "'div.details'" + ').show();">' + qNumber + '&nbsp;&nbsp;&nbsp;' + qClientName + ' </a> <div class="details"> ' +
                 qOperationName + ' <a href="javascript:return false;" class="hideDiv" onclick="$(this).parent().hide();">Скрыть</a> </div></div>')
         

@@ -5,19 +5,13 @@ using System.Web;
 using Microsoft.AspNet.SignalR;
 using QueueStepchenko.Models;
 using System.Web.Security;
+using System.Web.Mvc;
 
 namespace QueueStepchenko.Hubs
 {
     public class QueueHub : Hub, IQueueHub
     {
        static List<UserHub> Users = new List<UserHub>();
-
-       IRepositoryUser _repositoryUser;
-
-       public QueueHub(IRepositoryUser repo)
-       {
-           _repositoryUser = repo;
-       }
 
        public void CallClient()
        {
@@ -44,7 +38,6 @@ namespace QueueStepchenko.Hubs
                 user.ConnectionId = Context.ConnectionId;
                 user.Login = Context.User.Identity.Name;
                 Users.Add(user);
-                _repositoryUser.SetActiveForUser(user.Login);
 
             }
         }
@@ -87,7 +80,8 @@ namespace QueueStepchenko.Hubs
             if (user != null)
             {
                 Users.Remove(user);
-                _repositoryUser.SetDeActiveForUser(user.Login);
+                //IRepositoryUser _userRepository = DependencyResolver.Current.GetService<IRepositoryUser>();
+                //_userRepository.SetDeActiveForUser(user.Login);
             }
 
             return base.OnDisconnected(stopCalled);

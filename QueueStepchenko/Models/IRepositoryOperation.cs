@@ -12,7 +12,7 @@ namespace QueueStepchenko.Models
 
         void Save(Operation element);
         void Delete(Operation element);
-        List<Operation> GetList(string login);
+        List<Operation> GetList();
         bool isCurrentClientInQueue(string login);
         Operation Get(int id);
     }

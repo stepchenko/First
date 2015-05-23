@@ -28,21 +28,21 @@ namespace QueueStepchenko
             //this.AuthenticateRequest += (s, e) => { HttpContext.Current.Session["user"] = HttpContext.Current.User.Identity.Name; };
         }
 
-        protected void Session_End(object sender, EventArgs e)
-        {
-            IRepositoryUser _userRepository = DependencyResolver.Current.GetService<IRepositoryUser>();
+        //protected void Session_End(object sender, EventArgs e)
+        //{
+        //    IRepositoryUser _userRepository = DependencyResolver.Current.GetService<IRepositoryUser>();
 
-            int userId = _userRepository.LogOffUser((string)Session["user"]);
+        //    int userId = _userRepository.LogOffUser((string)Session["user"]);
 
-            if (HttpContext.Current.User.IsInRole("employee"))
-            {
-                var context = GlobalHost.ConnectionManager.GetHubContext<QueueHub>();
+        //    if (HttpContext.Current.User.IsInRole("employee"))
+        //    {
+        //        var context = GlobalHost.ConnectionManager.GetHubContext<QueueHub>();
 
-                context.Clients.All.logoffEmployee("#id_" + userId.ToString());
-            };
+        //        context.Clients.All.logoffEmployee("#id_" + userId.ToString());
+        //    };
 
-            FormsAuthentication.SignOut();
+        //    FormsAuthentication.SignOut();
 
-        }
+        //}
     }
 }

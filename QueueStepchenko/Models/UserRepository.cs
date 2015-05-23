@@ -89,7 +89,7 @@ namespace QueueStepchenko.Models
             return userId;
         }
 
-        public int LogInUser(string login, string password)
+        public User LogInUser(string login, string password)
         {
 
             if (string.IsNullOrEmpty(login))
@@ -114,16 +114,26 @@ namespace QueueStepchenko.Models
 
             connection.Open();
 
-            int userId;
+            User user = new User();
 
             using (connection)
             {
-                
-                userId = (int) command.ExecuteScalar();
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    user.Login = login;
+                    user.Id = Convert.ToInt32(reader["Id"]);
+                    user.Name = Convert.ToString(reader["Name"]);
+                    user.RoleName = Convert.ToString(reader["RoleName"]);
+
+                };
+
+                reader.Close();
 
             };
 
-            return userId;
+            return user;
         }
 
 

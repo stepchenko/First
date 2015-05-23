@@ -57,6 +57,51 @@ namespace QueueStepchenko.Models
             return list;   
         }
 
+         public List<Operation> GetOperationsById(int id)
+        {
+            if (id <=0 )
+            {
+                throw new ArgumentException("Invalid argument Id");
+            }
+
+            string conString = Methods.GetStringConnection();
+
+            SqlConnection connection = new SqlConnection(conString);
+
+            SqlCommand command = new SqlCommand("SelectOperationsById", connection);
+            command.CommandType = System.Data.CommandType.StoredProcedure;
+
+            command.Parameters.Add("@id", System.Data.SqlDbType.Int).Value = id;
+
+            connection.Open();
+
+            List<Operation> list = new List<Operation>();
+
+            using (connection)
+            {
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+
+                    list.Add(new Operation()
+                    {
+                        Id = Convert.ToInt32(reader["Id"]),
+                        Name = Convert.ToString(reader["Name"]),
+                        CountEmployees = Convert.ToInt32(reader["CountEmployees"])
+
+                    });
+
+                };
+                reader.Close();
+            };
+
+            return list;   
+
+        }
+  
+
         public Employee Get(int id)
         {
             throw new NotImplementedException();

@@ -21,7 +21,9 @@
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td class="text-center">
-                    @Html.DisplayFor(modelItem => item.CountEmployees)
+                    <span id="empls_@item.Id">
+                        @Html.DisplayFor(modelItem => item.CountEmployees)
+                    </span>
                 </td>
                 <td class="text-center">
                     <span id="clients_@item.Id">
