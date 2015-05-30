@@ -25,18 +25,18 @@
 
     @section Middle {
 
-        @{ Html.RenderAction("List", "Operation"); }
+        @{ Html.RenderAction("ListOperations", "Operation"); }
     }
 
     @section LeftSidebar {
 
-        @{ Html.RenderAction("List", "Employee"); }
+        @{ Html.RenderAction("ListEmployees", "Employee"); }
        
     }
 
     @section RightSidebar {
 
-        @{ Html.RenderAction("List", "Queue"); }
+        @{ Html.RenderAction("ListQueue", "Queue"); }
     }
 
    

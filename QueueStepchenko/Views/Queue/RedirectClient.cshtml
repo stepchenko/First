@@ -1,0 +1,37 @@
+﻿@model QueueStepchenko.Models.RedirectClientViewModel
+
+<div>
+    <h4>Направить клиента @Model.Queue.Client.Name на другую операцию</h4>
+    <hr />
+    <dl class="dl-horizontal">
+    </dl>
+</div>
+<p>
+  
+    
+<table>
+    <tr>
+        <td>
+            @using (Ajax.BeginForm("RedirectClient", "Queue", new { queueId = Model.Queue.Id }, new AjaxOptions { UpdateTargetId = "callEmployee" }, new { @class = "choiseOperation" }))
+            {
+                @Html.DropDownList("Id", Model.Operations as SelectList)
+               
+                <input type="submit" value="OK" class="btn btn-default" />
+                
+            }
+        </td>
+        <td>
+            @using (Ajax.BeginForm("Main", "Queue", new { }, new AjaxOptions { UpdateTargetId = "DivMain" }))
+            {
+                <input type="submit" value="Отмена" class="btn btn-default" />
+            }
+        </td>
+    </tr>
+</table>
+   
+    <br/>
+
+
+   
+    
+    

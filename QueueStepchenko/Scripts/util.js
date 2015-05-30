@@ -12,27 +12,57 @@
     //            $('#EmployeeCalls').append('<p>Сотрудник <b>' + name+ '</b> приглашает вас </p>');  };
     //})
 
-    // Объявление функции, которая хаб вызывает при получении сообщений
-    queue.client.callClient = function () {
-        // Добавление сообщений на веб-страницу 
-        $('#DivMain').append('<p> Приглашаем клиента </p>');
-    };
-    queue.client.loginEmployee = function (idLink) {
-         
-        $("#id_" + idLink).attr("class", "employeeLink");
+
+    queue.client.callFromEmployee = function (clientName, operationName) {
+        $('#callEmployee').html('<h4> Приглашается клиент: ' + clientName + '<br/><br/>' +
+                        'Операция: '+operationName+'<br/><br/><span id="numberCall"></span></h4>');
     };
 
-    queue.client.logoffEmployee = function (idLink) {
+    queue.client.callToClient = function (employeeName) {
+        $('#callClient').html('<h4> Вас приглашает сотрудник: ' + employeeName + '<br/><br/><span id="numberCall"></span></h4>');
+        $('#BtnAccept').attr("class", "btn btn-default");
+    };
 
-        $("#id_" + idLink).attr("class", "employeeOffLink");
+    queue.client.changeNumberCall = function (numberCall, maxNumberCall, second) {
+        clearInterval(interv);
+        $('#numberCall').html('Вызов <span class="forTimer"> &nbsp;' + numberCall + '&nbsp;</span> из &nbsp;' + maxNumberCall +
+                        '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id = "timer" class="forTimer">&nbsp;' + second + '&nbsp;</span>');
+        second = second - 1;
+        var interv = setInterval(function () { $('#timer').html('&nbsp;' + second + '&nbsp;'); if (second == 0) { clearInterval(interv); }; second = second - 1; }, 1000);
+     };
+
+    queue.client.servicingClient = function (employeeName) {
+        $('#callClient').html('<h4> Вас обслуживает сотрудник: ' + employeeName + '<br/><br/></h4>');
+        $('#BtnAccept').attr("class", "noVisible");
+    };
+
+    queue.client.servicingEmployee = function (clientName, operationName) {
+        $('#callEmployee').html('<h4> Обслуживается клиент: ' + clientName + '<br/><br/>' +
+                        'Операция: ' + operationName + '<br/><br/></h4>');
+    };
+
+    queue.client.noClient = function () {
+        $('#callEmployee').html('<h3> Ожидающий клиент отсутствует </h3>');
+    };
+
+    queue.client.addMessageEmployee = function (message) {
+        $('#callEmployee').append('<h4 class="redColor">'+message+'</h4>');
+    };
+
+    queue.client.addMessageClient = function (message) {
+        $('#callClient').append('<h4 class="redColor">' + message + '</h4>');
+    };
+
+    queue.client.changeClass = function (id, className) {
+        $(id).attr("class", className);
     };
 
     queue.client.disabledBtnInQueue = function () {
-        $("#tblOperations input").attr({ "disabled": "disabled", "class": "likeDisabledLink" });
+        $("#tblOperations input").attr("disabled", "disabled");
     };
 
     queue.client.enabledBtnInQueue = function () {
-        $("#tblOperations input").removeAttr("disabled").attr("class","likeLink");
+        $("#tblOperations input").removeAttr("disabled");
     };
 
     queue.client.changeCountClients = function (count, idOperation) {
@@ -50,25 +80,36 @@
         $('#queue_' + idQueue).remove();
     };
 
-    queue.client.addClientInQueue = function (prevId, qId, qNumber, qOperationName, qClientName) {
-        // $(queue.prevId).after('<div id="queue_' + queue.Id + '"> <a href="javascript:return false;" class="employeeLink" onclick="$(this).siblings(' + "'div.details'" + ').show();">' + queue.Number + '&nbsp;&nbsp;&nbsp;' + queue.Client.Name + ' </a></div>');
-        // var obj = jQuery.parseJSON(queue);
-        //alert(qId);
-        $('#queue_' + prevId).after('<div id="queue_' + qId + '"> <a href="javascript:return false;" class="employeeLink" onclick="$(this).siblings(' +
-                "'div.details'" + ').show();">' + qNumber + '&nbsp;&nbsp;&nbsp;' + qClientName + ' </a> <div class="details"> ' +
-                qOperationName + ' <a href="javascript:return false;" class="hideDiv" onclick="$(this).parent().hide();">Скрыть</a> </div></div>')
-        
+    queue.client.addClientInQueue = function (prevId, qId, qNumber, qOperationName, qClientName,isWaitExtra,className) {
+        var htmlStr = '<div id="queue_' + qId + '"> <a href="javascript:return false;" class="'+className+'" onclick="$(this).siblings(' +
+                "'div.details'" + ').show();">' + qNumber + ' &nbsp;&nbsp;&nbsp; ' + qClientName + ' </a> <div class="details"> ';
+        if (isWaitExtra) {
+            htmlStr = htmlStr + '<span class="redColor">Вне очереди<br/></span>';
+        };
+        htmlStr = htmlStr+qOperationName + ' <a href="javascript:return false;" class="hideDiv" onclick="$(this).parent().hide();">Скрыть</a> </div></div>';
+        if (prevId == 0) {
+            $('RightSidebar').prepend(htmlStr);
+        }
+        else {
+            $('#queue_' + prevId).after(htmlStr);
+        };
     };
+
+
+    queue.client.refreshMainClient = function () {
+        $('#refreshClient').click();
+    };
+
 
     // Открываем соединение
     $.connection.hub.start().done(function () {
         queue.server.connect();
         
 
-         //вызов клиента
-        $("#btnCallClient").click(function () {
-            queue.server.callClient();
-        });
+        // //вызов клиента
+        //$("#btnCallClient").click(function () {
+        //    queue.server.callClient();
+        //});
     });
 })();
 

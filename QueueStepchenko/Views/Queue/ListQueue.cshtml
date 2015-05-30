@@ -1,0 +1,42 @@
+﻿@model IEnumerable<QueueStepchenko.Models.Queue>
+
+
+@foreach (var item in Model)
+{
+    string className;
+    if(item.StateClient == QueueStepchenko.Models.StatesClient.Servicing)
+    {
+        className = "queueServicing";
+    }
+    else
+    {
+        if (item.StateClient == QueueStepchenko.Models.StatesClient.Welcom)
+        {
+            className = "queueWelcom";
+        }
+        else
+        {
+            className = "queueWait";
+        }
+    }
+    <div id="queue_@item.Id">
+        <a href="javascript:return false;"
+           class="@className";
+           onclick="$(this).siblings('div.details').show();">
+            @item.Number
+            &nbsp;&nbsp;&nbsp;
+            @item.Client.Name
+        </a>
+        <div class="details" >
+            @if (item.StateClient == QueueStepchenko.Models.StatesClient.WaitExtra)
+            {
+                <span class="redColor">
+                    Вне очереди<br/>
+                </span>
+            }
+            @item.Operation.Name
+            <a href="javascript:return false;" class="hideDiv" onclick="$(this).parent().hide();">Скрыть</a>
+        </div>
+    </div>
+ 
+}

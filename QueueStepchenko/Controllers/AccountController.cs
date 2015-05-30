@@ -70,7 +70,7 @@ namespace QueueStepchenko.Controllers
                     {
 
                         var context = GlobalHost.ConnectionManager.GetHubContext<QueueHub>();
-                        context.Clients.All.loginEmployee(user.Id);
+                        context.Clients.All.changeClass("#id_" + user.Id, "employeeLink");
 
                         string json = ListOperationsToJson(user.Id);
 
@@ -148,7 +148,7 @@ namespace QueueStepchenko.Controllers
             {
                 var context = GlobalHost.ConnectionManager.GetHubContext<QueueHub>();
                 int userId = _userRepository.LogOffUser(HttpContext.User.Identity.Name);
-                context.Clients.All.logoffEmployee(userId);
+                context.Clients.All.changeClass("#id_" + userId, "employeeOffLink");
 
                 string json = ListOperationsToJson(userId);
 

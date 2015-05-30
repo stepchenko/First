@@ -13,6 +13,6 @@ namespace QueueStepchenko.Models
         bool isLoginUser(string login);
 
         string GetConnectionIdByLogin(string login);
-        void GetOutQueue(string login, int queueId, int CountClients, int operationId);
+        //void GetOutQueue(string login, int queueId, int CountClients, int operationId);
     }
 }

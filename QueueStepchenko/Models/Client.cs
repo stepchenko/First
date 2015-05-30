@@ -9,5 +9,6 @@ namespace QueueStepchenko.Models
     {
         public int ClientId { get; set; }
         public string Name { get; set; }
+        public string Login { get; set; }
     }
 }

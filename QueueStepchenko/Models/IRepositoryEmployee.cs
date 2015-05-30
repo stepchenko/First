@@ -7,7 +7,6 @@ namespace QueueStepchenko.Models
 {
     public interface IRepositoryEmployee
     {
-        List<Employee> Elements { get; set; }
 
         void Save(Employee element);
         void Delete(Employee element);

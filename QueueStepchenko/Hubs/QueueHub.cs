@@ -61,18 +61,18 @@ namespace QueueStepchenko.Hubs
             return Users.Any(u => u.Login == login);
         }
 
-        public void GetOutQueue(string login, int queueId, int countClients, int operationId)
-        {
-            string connectionId = GetConnectionIdByLogin(login);
+        //public void GetOutQueue(string login, int queueId, int countClients, int operationId)
+        //{
+        //    string connectionId = GetConnectionIdByLogin(login);
            
-            if (!string.IsNullOrEmpty(connectionId))
-            {
-                Clients.Client(connectionId).enabledBtnInQueue();
-            };
-            Clients.All.changeCountClients(countClients, operationId);
-            Clients.All.removeClientFromQueue("queue_" + queueId.ToString());
+        //    if (!string.IsNullOrEmpty(connectionId))
+        //    {
+        //        Clients.Client(connectionId).enabledBtnInQueue();
+        //    };
+        //    Clients.All.changeCountClients(countClients, operationId);
+        //    Clients.All.removeClientFromQueue("queue_" + queueId.ToString());
 
-        }
+        //}
 
         public override System.Threading.Tasks.Task OnDisconnected(bool stopCalled)
         {

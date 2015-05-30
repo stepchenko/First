@@ -15,14 +15,12 @@ namespace QueueStepchenko.Controllers
        public EmployeeController(IRepositoryEmployee repo)
         {
             _employeeRepository = repo;
-            _employeeRepository.Elements = _employeeRepository.GetList();
         }
 
        
-        public PartialViewResult List()
+        public PartialViewResult ListEmployees()
         {
-            
-            return PartialView(_employeeRepository.Elements);
+            return PartialView(_employeeRepository.GetList());
         }
 
         public PartialViewResult OperationsByEmployee(int id)

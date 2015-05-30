@@ -1,7 +1,35 @@
-﻿
+﻿@model QueueStepchenko.Models.Queue
 
-@using (Ajax.BeginForm("RunTimer", "Queue", new {  }, new AjaxOptions { UpdateTargetId = "DivMain" }))
-{
-    <input type="submit" value="Пригласить клента" class="btn btn-default" />
-}
+<table class="noborder">
+    <tr>
+        <td class="first">
+            <br /> <br /> 
+            @using (Ajax.BeginForm("CallClient", "Queue", new { }, new AjaxOptions { }))
+            {
+                <input type="submit" value="Пригласить" class="btn btn-default" />
+            }
+            <br/> 
+            @using (Ajax.BeginForm("RedirectClient", "Queue", new { }, new AjaxOptions { UpdateTargetId = "callEmployee", HttpMethod = "Get" }))
+            {
+                <input type="submit" value="Направить" class="btn btn-default" />
+            }
+            <br /> 
+            @using (Ajax.BeginForm("DisableClient", "Queue", new { }, new AjaxOptions { }))
+            {
+                <input type="submit" value="Завершить" class="btn btn-default" />
+            }
+
+        </td>
+        <td class="second">
+            <div id="callEmployee" class="form-horizontal">
+                @{Html.RenderPartial("MainEmployeeCenter",Model);}
+            </div>
+
+        </td>
+
+    </tr>
+
+</table>
+
+
 

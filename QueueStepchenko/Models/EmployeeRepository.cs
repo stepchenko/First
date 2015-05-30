@@ -9,8 +9,7 @@ namespace QueueStepchenko.Models
 {
     public class EmployeeRepository: IRepositoryEmployee
     {
-        public List<Employee> Elements {get; set;}
-
+ 
         public void Save(Employee employee)
         {
             throw new NotImplementedException();

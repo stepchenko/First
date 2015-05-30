@@ -31,17 +31,17 @@
                     </span>
                 </td>
                 <td>
-                    @if (ViewBag.isClient) 
-                    { 
+                    @if (ViewBag.isClient)
+                    {
                         using (Ajax.BeginForm("GetInQueue", "Queue", new { id = item.Id }, new AjaxOptions { UpdateTargetId = "DivMain" }))
                         {
-                            if(ViewBag.isClientInQueue)
-                            { 
-                                <input type="submit" value="Стать в очередь" disabled ="disabled" class="likeDisabledLink"/>
+                            if (ViewBag.isClientInQueue)
+                            {
+                                <input type="submit" value="В очередь" disabled="disabled" class="btn btn-default" />
                             }
                             else
                             {
-                                <input type="submit" value="Стать в очередь" class="likeLink" />
+                                <input type="submit" value="В очередь" class="btn btn-default" />
                             }
 
                         }

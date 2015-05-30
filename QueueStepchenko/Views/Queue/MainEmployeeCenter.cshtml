@@ -1,0 +1,29 @@
+﻿@model QueueStepchenko.Models.Queue
+
+@switch (Model.StateClient)
+{
+    case QueueStepchenko.Models.StatesClient.Servicing:
+        <h4>
+            Обслуживается клиент: @Model.Client.Name <br /><br />
+            Операция: @Model.Operation.Name <br /><br />
+        </h4>
+        break;
+    case QueueStepchenko.Models.StatesClient.Welcom:
+    <h4>
+        Приглашается клиент: @Model.Client.Name <br /><br />
+        Операция: @Model.Operation.Name <br /><br />
+        <span id="numberCall"></span>
+    </h4>
+        break;
+    case QueueStepchenko.Models.StatesClient.NoClient:
+    <h3>
+        Ожидающий клиент отсутствует
+    </h3>
+        break;
+    default:
+    <h4>Пригласите клиента</h4>
+        break;
+}
+
+
+

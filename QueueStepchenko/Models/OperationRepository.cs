@@ -9,7 +9,6 @@ namespace QueueStepchenko.Models
 {
     public class OperationRepository : IRepositoryOperation
     {
-        public List<Operation> Elements { get; set; }
 
         public void Save(Operation operation)
         {
@@ -55,35 +54,6 @@ namespace QueueStepchenko.Models
             };
 
             return list;    
-        }
-
-        public bool isCurrentClientInQueue(string login)
-        {
-            if (string.IsNullOrEmpty(login))
-            {
-                throw new ArgumentException("Login is null or empty");
-            };
-
-            string conString = Methods.GetStringConnection();
-
-            SqlConnection connection = new SqlConnection(conString);
-
-            SqlCommand command = new SqlCommand("isCurrentClientInQueue", connection);
-            command.CommandType = System.Data.CommandType.StoredProcedure;
-
-            command.Parameters.Add("@login", System.Data.SqlDbType.VarChar).Value = login;
-
-            connection.Open();
-
-            bool result;
-
-            using (connection)
-            {
-                result = (bool) command.ExecuteScalar();
-                
-            };
-
-            return result;
         }
 
         public Operation Get(int id)
