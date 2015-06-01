@@ -149,6 +149,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OperationController.cs" />
     <Compile Include="Controllers\QueueController.cs" />
+    <Compile Include="Controllers\SettingController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -160,13 +161,17 @@
     <Compile Include="Models\IRepositoryEmployee.cs" />
     <Compile Include="Models\IRepositoryOperation.cs" />
     <Compile Include="Models\IRepositoryQueue.cs" />
+    <Compile Include="Models\IRepositorySetting.cs" />
     <Compile Include="Models\IRepositoryUser.cs" />
     <Compile Include="Models\OperationRepository.cs" />
     <Compile Include="Models\Operation.cs" />
+    <Compile Include="Models\OperationViewModel.cs" />
     <Compile Include="Models\Queue.cs" />
     <Compile Include="Models\QueueRepository.cs" />
     <Compile Include="Models\RedirectClientViewModel.cs" />
     <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\Setting.cs" />
+    <Compile Include="Models\SettingRepository.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserHub.cs" />
     <Compile Include="Models\UserRepository.cs" />
@@ -178,6 +183,10 @@
     <Compile Include="Utils\Methods.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\Queue.mdf" />
+    <Content Include="App_Data\Queue_log.ldf">
+      <DependentUpon>Queue.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -231,10 +240,13 @@
     <Content Include="Views\Queue\MainEmployee.cshtml" />
     <Content Include="Views\Queue\RedirectClient.cshtml" />
     <Content Include="Views\Queue\MainEmployeeCenter.cshtml" />
+    <Content Include="Views\Employee\ChoiceOperations.cshtml" />
+    <Content Include="Views\Shared\_LayoutEdit.cshtml" />
+    <Content Include="Views\Operation\ViewOperations.cshtml" />
+    <Content Include="Views\Operation\EditOperation.cshtml" />
+    <Content Include="Views\Setting\EditSetting.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

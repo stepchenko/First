@@ -6,13 +6,13 @@
     <dl class="dl-horizontal">
     </dl>
 </div>
-<p>
+
   
     
 <table>
     <tr>
         <td>
-            @using (Ajax.BeginForm("RedirectClient", "Queue", new { queueId = Model.Queue.Id }, new AjaxOptions { UpdateTargetId = "callEmployee" }, new { @class = "choiseOperation" }))
+            @using (Ajax.BeginForm("RedirectClient", "Queue", new { queueId = Model.Queue.Id }, new AjaxOptions { UpdateTargetId = "callEmployee" }, new { @class = "choiceOperation" }))
             {
                 @Html.DropDownList("Id", Model.Operations as SelectList)
                

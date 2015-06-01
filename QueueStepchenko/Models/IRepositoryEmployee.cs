@@ -13,6 +13,10 @@ namespace QueueStepchenko.Models
         List<Employee> GetList();
         Employee Get(int id);
 
+
+        List<Operation> GetOperationsForChoice(string login);
+        void SaveEmployeeOperations(string login, string[] checkedValues);
+
         List<Operation> GetOperationsById(int id);
     }
 }

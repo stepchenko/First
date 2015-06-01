@@ -17,6 +17,6 @@ namespace QueueStepchenko.Controllers
            return View();
         }
 
-       
+        
     }
 }

@@ -35,9 +35,29 @@ namespace QueueStepchenko.Controllers
             return PartialView(operations);
         }
 
-        public ActionResult Register()
+
+        [HttpGet]
+        [System.Web.Mvc.Authorize(Roles = "employee")]
+        public ActionResult ChoiceOperations()
         {
-            return View();
+
+            List<Operation> operations = _employeeRepository.GetOperationsForChoice(HttpContext.User.Identity.Name);
+
+            return View(operations);
+        }
+
+
+
+        [HttpPost]
+        [System.Web.Mvc.Authorize(Roles = "employee")]
+        public ActionResult ChoiceOperations(string[] checkedValues, string action)
+        {
+            if (action == "OK")
+            {
+                _employeeRepository.SaveEmployeeOperations(HttpContext.User.Identity.Name, checkedValues);
+            };
+
+            return RedirectToAction("Index", "Home"); 
         }
     }
 }

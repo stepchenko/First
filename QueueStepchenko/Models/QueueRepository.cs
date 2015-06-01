@@ -64,17 +64,21 @@ namespace QueueStepchenko.Models
             using (connection)
             {
                 SqlDataReader reader = command.ExecuteReader();
-                if (reader.Read())
+                using (reader)
                 {
-                    operation.Id = Convert.ToInt32(reader["Id"]);
-                    operation.Name = Convert.ToString(reader["Name"]);
-                    operation.CountClients = Convert.ToInt32(reader["countClients"]);
-                    operation.CountEmployees = Convert.ToInt32(reader["countEmployees"]);
+                    if (reader.Read())
+                    {
+                        operation.Id = Convert.ToInt32(reader["Id"]);
+                        operation.Name = Convert.ToString(reader["Name"]);
+                        operation.CountClients = Convert.ToInt32(reader["countClients"]);
+                        operation.CountEmployees = Convert.ToInt32(reader["countEmployees"]);
+                    }
                 }
             };
 
             return operation;
         }
+
 
         public bool isCurrentUserInQueue(string login)
         {
@@ -125,26 +129,30 @@ namespace QueueStepchenko.Models
             {
                 SqlDataReader reader = command.ExecuteReader();
 
-                while (reader.Read())
+                using (reader)
                 {
-                    listQueue.Add(new Queue(){
-                                                Id = Convert.ToInt32(reader["Id"]),
-                                                StateClient = (StatesClient)Convert.ToInt32(reader["StateClientId"]),
-                                                Number = Convert.ToInt32(reader["Number"]),
-                                                Client = new Client()
-                                                {
-                                                    ClientId = Convert.ToInt32(reader["ClientId"]),
-                                                    Name = Convert.ToString(reader["ClientName"])
-                                                },
-                                                Operation = new Operation()
-                                                {
-                                                    Id = Convert.ToInt32(reader["OperationId"]),
-                                                    Name = Convert.ToString(reader["OperationName"])
-                                                }
-                    });
-                };
 
-                reader.Close();
+                    while (reader.Read())
+                    {
+                        listQueue.Add(new Queue()
+                        {
+                            Id = Convert.ToInt32(reader["Id"]),
+                            StateClient = (StatesClient)Convert.ToInt32(reader["StateClientId"]),
+                            Number = Convert.ToInt32(reader["Number"]),
+                            Client = new Client()
+                            {
+                                ClientId = Convert.ToInt32(reader["ClientId"]),
+                                Name = Convert.ToString(reader["ClientName"])
+                            },
+                            Operation = new Operation()
+                            {
+                                Id = Convert.ToInt32(reader["OperationId"]),
+                                Name = Convert.ToString(reader["OperationName"])
+                            }
+                        });
+                    };
+
+                };
             };
 
             return listQueue;
@@ -191,14 +199,13 @@ namespace QueueStepchenko.Models
                 
                  SqlDataReader  reader = command.ExecuteReader();
 
-                 if (reader.Read())
+                 using (reader)
                  {
-
-                     using (reader)
-                     {
-                         result = (StatesClient)Convert.ToInt32(reader["StateClientId"]);
+                     if (reader.Read())
+                     {                        
+                        result = (StatesClient)Convert.ToInt32(reader["StateClientId"]);
                      }
-                }
+                 }
 
             };
             return result;
@@ -227,13 +234,15 @@ namespace QueueStepchenko.Models
             using (connection)
             {
                 SqlDataReader reader = command.ExecuteReader();
-                if (reader.Read())
-                    using (reader)
+                using (reader)
+                {
+                    if (reader.Read())
                     {
                         employee.EmployeeId = Convert.ToInt32(reader["EmployeeId"]);
                         employee.Name = Convert.ToString(reader["Name"]);
                         employee.Login = Convert.ToString(reader["Login"]);
                     }
+                }
             };
 
             return employee;
@@ -306,8 +315,9 @@ namespace QueueStepchenko.Models
             using (connection)
             {
                 SqlDataReader reader = command.ExecuteReader();
-                if (reader.Read())
-                    using(reader)
+                using (reader)
+                {
+                    if (reader.Read())
                     {
                         queue.Id = Convert.ToInt32(reader["Id"]);
                         queue.StateClient = (StatesClient)Convert.ToInt32(reader["StateClientId"]);
@@ -346,6 +356,7 @@ namespace QueueStepchenko.Models
                             };
                         }
                     }
+                }
             };
 
             return queue;

@@ -9,6 +9,7 @@ namespace QueueStepchenko.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public bool isCheck { get; set; } 
 
         public int CountEmployees { get; set; }
         public int CountClients { get; set; }

@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Электронная очередь</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/JS")
+</head>
+<body>
+    
+
+        <div id="DivMain">
+           @Html.ActionLink("На главную", "Index", "Home")
+        </div>
+
+        <div id="LoginHead">
+            @{ Html.RenderAction("LoginPartial", "Account"); }
+        </div>
+
+        <div id="LoginMain">
+
+        </div>
+     
+
+    <div class="wrapper">
+       
+        <br/><br/>
+
+        @RenderBody()
+
+
+    </div>
+
+</body>
+</html>
+

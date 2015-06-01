@@ -27,6 +27,7 @@ namespace QueueStepchenko.Utils
             builder.RegisterType<EmployeeRepository>().As<IRepositoryEmployee>().InstancePerRequest(); ;
             builder.RegisterType<UserRepository>().As<IRepositoryUser>().InstancePerRequest();
             builder.RegisterType<QueueRepository>().As<IRepositoryQueue>().InstancePerRequest();
+            builder.RegisterType<SettingRepository>().As<IRepositorySetting>().InstancePerRequest();
 
             builder.RegisterInstance(new QueueHub()).As<IQueueHub>();
 

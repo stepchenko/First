@@ -35,16 +35,18 @@ namespace QueueStepchenko.Models
             {
                 SqlDataReader reader = command.ExecuteReader();
 
-                if (reader.Read())
+                using (reader)
                 {
-                    user.Login = login;
-                    user.Id = Convert.ToInt32(reader["Id"]);
-                    user.Name =  Convert.ToString(reader["Name"]);
-                    user.RoleName =  Convert.ToString(reader["RoleName"]);
-                        
-                };
+                    if (reader.Read())
+                    {
+                        user.Login = login;
+                        user.Id = Convert.ToInt32(reader["Id"]);
+                        user.Name = Convert.ToString(reader["Name"]);
+                        user.RoleName = Convert.ToString(reader["RoleName"]);
 
-                reader.Close();
+                    };
+
+                };
                 
             }
 
@@ -119,17 +121,18 @@ namespace QueueStepchenko.Models
             using (connection)
             {
                 SqlDataReader reader = command.ExecuteReader();
-
-                if (reader.Read())
+                using (reader)
                 {
-                    user.Login = login;
-                    user.Id = Convert.ToInt32(reader["Id"]);
-                    user.Name = Convert.ToString(reader["Name"]);
-                    user.RoleName = Convert.ToString(reader["RoleName"]);
+                    if (reader.Read())
+                    {
+                        user.Login = login;
+                        user.Id = Convert.ToInt32(reader["Id"]);
+                        user.Name = Convert.ToString(reader["Name"]);
+                        user.RoleName = Convert.ToString(reader["RoleName"]);
+
+                    };
 
                 };
-
-                reader.Close();
 
             };
 

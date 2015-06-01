@@ -1,0 +1,39 @@
+﻿@model IEnumerable<QueueStepchenko.Models.Operation>
+
+@{
+    Layout = "~/Views/Shared/_LayoutEdit.cshtml";
+    @Styles.Render("~/Content/css")
+}
+
+
+<div>
+    <h3>Выбор операций</h3>
+     <hr />
+</div>
+
+    @using (Html.BeginForm())
+    {
+        foreach (QueueStepchenko.Models.Operation value in Model)
+        {
+            if (value.isCheck)
+            {
+                <label>
+                    <input type="checkbox" name="checkedValues" checked="checked" value="@value.Id">
+                    @value.Name
+                </label> <br /> <br />
+            }
+            else
+            { 
+                <label><input type="checkbox" name="checkedValues" value="@value.Id" >
+                        @value.Name
+                </label> <br /> <br />
+            }
+        }
+
+        <input type="submit" name="action" value="OK" class="btn btn-default" />
+        
+        <input type="submit" name="action"  value="Отмена" class="btn btn-default" />
+    }
+
+    
+

@@ -9,9 +9,10 @@ namespace QueueStepchenko.Models
     public interface IRepositoryOperation
     {
 
-        void Save(Operation element);
-        void Delete(Operation element);
+        void Save(int id, string name);
+        List<OperationViewModel> Delete(int id);
         List<Operation> GetList();
-        Operation Get(int id);
+        List<OperationViewModel> GetListForView();
+        OperationViewModel Get(int id);
     }
 }
