@@ -59,5 +59,109 @@ namespace QueueStepchenko.Controllers
 
             return RedirectToAction("Index", "Home"); 
         }
+
+
+        [System.Web.Mvc.Authorize(Roles = "admin")]
+        public ActionResult ViewEmployees()
+        {
+            List<EmployeeViewModel> employees = _employeeRepository.GetListForView();
+
+            return View(employees);
+        }
+
+
+        [HttpGet]
+        [System.Web.Mvc.Authorize(Roles = "admin")]
+        public ActionResult EditEmployee(string login)
+        {
+            EmployeeViewModel employee = _employeeRepository.Get(login);
+
+            return View(employee);
+        }
+
+        [HttpPost]
+        [System.Web.Mvc.Authorize(Roles = "admin")]
+        public ActionResult EditEmployee(int id, string name, string position)
+        {
+            _employeeRepository.Save(id, name, position);
+
+            return RedirectToAction("ViewEmployees");
+        }
+
+
+        [HttpGet]
+        [System.Web.Mvc.Authorize(Roles = "admin")]
+        public ActionResult RegisterEmployee()
+        {
+            EmployeeViewModel employee = new EmployeeViewModel();
+
+            return View(employee);
+        }
+
+        [HttpPost]
+        [System.Web.Mvc.Authorize(Roles = "admin")]
+        public ActionResult RegisterEmployee(EmployeeViewModel empl)
+        {
+            ModelState.Remove("OldPassword");
+
+            if (ModelState.IsValid)
+            {
+                _employeeRepository.SaveWithPassword(empl.EmployeeId, empl.Login, empl.Name, empl.Position, empl.Password);
+                return RedirectToAction("ViewEmployees");
+            }
+            else
+            {
+                return View(empl);
+            }
+        }
+
+        [HttpGet]
+        [System.Web.Mvc.Authorize(Roles = "admin,employee")]
+        public ActionResult Profile(string login)
+        {
+            EmployeeViewModel employee = _employeeRepository.Get(login);
+
+            return View(employee);
+        }
+
+        [HttpPost]
+        [System.Web.Mvc.Authorize(Roles = "admin,employee")]
+        public ActionResult Profile(EmployeeViewModel empl)
+        {
+            if (!empl.isChangePassword)
+            {
+                ModelState.Remove("OldPassword");
+                ModelState.Remove("Password");
+                ModelState.Remove("ConfirmPassword");
+            }
+
+            if (ModelState.IsValid)
+            {
+                if (empl.isChangePassword)
+                {
+                    _employeeRepository.SaveWithPassword(empl.EmployeeId, empl.Login, empl.Name, empl.Position, empl.Password);
+                }
+                else
+                {
+                    _employeeRepository.Save(empl.EmployeeId, empl.Name, empl.Position);
+                };
+
+                return RedirectToAction("Index","Home");
+            }
+            else
+            {
+                return View(empl);
+            }
+        }
+
+        [HttpGet]
+        [System.Web.Mvc.Authorize(Roles = "admin")]
+        public ActionResult DeleteEmployee(int id)
+        {
+            List<EmployeeViewModel> employees = _employeeRepository.Delete(id);
+
+            return View("ViewEmployees", employees);
+
+        }
     }
 }

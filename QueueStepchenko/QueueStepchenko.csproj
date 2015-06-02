@@ -45,6 +45,9 @@
     <Reference Include="Autofac.Integration.Mvc">
       <HintPath>..\packages\Autofac.Mvc5.3.3.3\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="DevOne.Security.Cryptography.BCrypt">
+      <HintPath>..\packages\BCrypt.1.0.0.0\lib\DevOne.Security.Cryptography.BCrypt.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -157,6 +160,7 @@
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\EmployeeRepository.cs" />
     <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\EmployeeViewModel.cs" />
     <Compile Include="Models\IQueueHub.cs" />
     <Compile Include="Models\IRepositoryEmployee.cs" />
     <Compile Include="Models\IRepositoryOperation.cs" />
@@ -176,6 +180,7 @@
     <Compile Include="Models\UserHub.cs" />
     <Compile Include="Models\UserRepository.cs" />
     <Compile Include="Models\UserViewModel.cs" />
+    <Compile Include="Models\ValidationMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\CustomRoleProvider.cs" />
     <Compile Include="App_Start\Startup.cs" />
@@ -245,6 +250,10 @@
     <Content Include="Views\Operation\ViewOperations.cshtml" />
     <Content Include="Views\Operation\EditOperation.cshtml" />
     <Content Include="Views\Setting\EditSetting.cshtml" />
+    <Content Include="Views\Employee\ViewEmployees.cshtml" />
+    <Content Include="Views\Employee\EditEmployee.cshtml" />
+    <Content Include="Views\Employee\RegisterEmployee.cshtml" />
+    <Content Include="Views\Employee\Profile.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

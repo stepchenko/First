@@ -68,11 +68,8 @@ namespace QueueStepchenko.Controllers
         [System.Web.Mvc.Authorize(Roles = "admin")]
         public ActionResult EditOperation(int id, string name, string action)
         {
-            if (action == "OK")
-            {
-                _operationRepository.Save(id, name);
-            }
-
+            _operationRepository.Save(id, name);
+            
             return RedirectToAction("ViewOperations");
         }
 

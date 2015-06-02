@@ -2,11 +2,11 @@
 
 @if (Model.RoleName == "client")
 {
-    @Html.ActionLink(Model.Name, "Register", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+    @Html.ActionLink(Model.Name, "Profile", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
 }
 else
 {
-    @Html.ActionLink(Model.Name, "Register", "Employee", routeValues: null, htmlAttributes: new { id = "loginLink" })
+    @Html.ActionLink(Model.Name, "Profile", "Employee", routeValues: new {login = Model.Login}, htmlAttributes: new { id = "loginLink" })
 }
 
 

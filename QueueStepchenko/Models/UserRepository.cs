@@ -1,4 +1,5 @@
-﻿using QueueStepchenko.Utils;
+﻿using DevOne.Security.Cryptography.BCrypt;
+using QueueStepchenko.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -91,9 +92,8 @@ namespace QueueStepchenko.Models
             return userId;
         }
 
-        public User LogInUser(string login, string password)
+        public bool isVerifyPassword(string login, string password)
         {
-
             if (string.IsNullOrEmpty(login))
             {
                 throw new ArgumentException("Login is null or empty");
@@ -101,7 +101,51 @@ namespace QueueStepchenko.Models
 
             if (string.IsNullOrEmpty(password))
             {
-                throw new ArgumentException("Passowrd is null or empty");
+                throw new ArgumentException("Password is null or empty");
+            };
+
+            string conString = Methods.GetStringConnection();
+
+            SqlConnection connection = new SqlConnection(conString);
+
+            SqlCommand command = new SqlCommand("GetPasswordByLogin", connection);
+            command.CommandType = System.Data.CommandType.StoredProcedure;
+
+            command.Parameters.Add("@login", System.Data.SqlDbType.VarChar).Value = login;
+           
+            connection.Open();
+
+            string hash = string.Empty;
+
+            using (connection)
+            {
+                SqlDataReader reader = command.ExecuteReader();
+                using (reader)
+                {
+                    if (reader.Read())
+                    {
+                        hash = Convert.ToString(reader["Password"]);
+                    }
+                };
+            };
+
+            if (hash == string.Empty || !BCryptHelper.CheckPassword(password, hash))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            };
+        }
+
+
+        public User LogInUser(string login)
+        {
+
+            if (string.IsNullOrEmpty(login))
+            {
+                throw new ArgumentException("Login is null or empty");
             };
 
             string conString = Methods.GetStringConnection();
@@ -112,8 +156,7 @@ namespace QueueStepchenko.Models
             command.CommandType = System.Data.CommandType.StoredProcedure;
 
             command.Parameters.Add("@login", System.Data.SqlDbType.VarChar).Value = login;
-            command.Parameters.Add("@password", System.Data.SqlDbType.VarChar).Value = password;
-
+           
             connection.Open();
 
             User user = new User();
@@ -129,9 +172,7 @@ namespace QueueStepchenko.Models
                         user.Id = Convert.ToInt32(reader["Id"]);
                         user.Name = Convert.ToString(reader["Name"]);
                         user.RoleName = Convert.ToString(reader["RoleName"]);
-
-                    };
-
+                    }
                 };
 
             };

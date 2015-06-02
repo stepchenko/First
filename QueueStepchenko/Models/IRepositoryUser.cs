@@ -11,10 +11,11 @@ namespace QueueStepchenko.Models
     
         User GetUserByLogin(string login);
         int LogOffUser(string login);
-        User LogInUser(string login, string password);
+        User LogInUser(string login);
         void SetActiveForUser(string login);
         void SetDeActiveForUser(string login);
         bool isFreeLogin(string login);
+        bool isVerifyPassword(string login, string password);
         string[] GetRolesForUser(string login);
         bool isUserInRole(string login, string roleName);
     }

@@ -27,13 +27,10 @@ namespace QueueStepchenko.Controllers
 
         [HttpPost]
         [System.Web.Mvc.Authorize(Roles = "admin")]
-        public ActionResult EditSetting(int NextNumberQueue, int NumberCall, int TimeCall, string action)
+        public ActionResult EditSetting(int NextNumberQueue, int NumberCall, int TimeCall)
         {
-            if (action == "OK")
-            {
-                _settingRepository.Save(NextNumberQueue, NumberCall, TimeCall);
-            }
-            
+            _settingRepository.Save(NextNumberQueue, NumberCall, TimeCall);
+                       
             return RedirectToAction("Index","Home");
         }
 

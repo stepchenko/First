@@ -57,13 +57,10 @@ namespace QueueStepchenko.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user= _userRepository.LogInUser(usermodel.Login, usermodel.Password); 
-                if (user == null || user.Id==0)
-                {
-                    ModelState.AddModelError("", "Пользователя с таким логином и паролем нет");
-                }
-                else
-                {
+                if(_userRepository.isVerifyPassword(usermodel.Login, usermodel.Password))
+                { 
+                    User user= _userRepository.LogInUser(usermodel.Login); 
+
                     FormsAuthentication.SetAuthCookie(user.Login, true);
 
                     if (user.RoleName=="employee")
@@ -76,8 +73,12 @@ namespace QueueStepchenko.Controllers
 
                         context.Clients.All.changeCountEmployees(json);
 
-                    };
+                    };  
+                }
+                else
+                {
                     
+                     ModelState.AddModelError("", "Пользователя с таким логином и паролем нет");
                 }
             }
 
@@ -104,11 +105,13 @@ namespace QueueStepchenko.Controllers
             return sb.ToString();
         }
 
+
         public ActionResult Register()
         {
 
             return View();
         }
+
         //[HttpPost]
         //[ValidateAntiForgeryToken]
         //public ActionResult Register(RegisterModel model)
@@ -142,6 +145,7 @@ namespace QueueStepchenko.Controllers
         //    }
         //    return View(model);
         //}
+
         public ActionResult LogOff()
         {
             if(HttpContext.User.IsInRole("employee"))
