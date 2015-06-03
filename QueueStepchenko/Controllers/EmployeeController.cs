@@ -81,9 +81,9 @@ namespace QueueStepchenko.Controllers
 
         [HttpPost]
         [System.Web.Mvc.Authorize(Roles = "admin")]
-        public ActionResult EditEmployee(int id, string name, string position)
+        public ActionResult EditEmployee(int EmployeeId, string Name, string Position)
         {
-            _employeeRepository.Save(id, name, position);
+            _employeeRepository.Save(EmployeeId, Name, Position);
 
             return RedirectToAction("ViewEmployees");
         }
@@ -117,16 +117,17 @@ namespace QueueStepchenko.Controllers
 
         [HttpGet]
         [System.Web.Mvc.Authorize(Roles = "admin,employee")]
-        public ActionResult Profile(string login)
+        public ActionResult ProfileEmployee(string login)
         {
             EmployeeViewModel employee = _employeeRepository.Get(login);
+            ViewBag.DivClass = "noVisible";
 
             return View(employee);
         }
 
         [HttpPost]
         [System.Web.Mvc.Authorize(Roles = "admin,employee")]
-        public ActionResult Profile(EmployeeViewModel empl)
+        public ActionResult ProfileEmployee(EmployeeViewModel empl)
         {
             if (!empl.isChangePassword)
             {
@@ -150,6 +151,14 @@ namespace QueueStepchenko.Controllers
             }
             else
             {
+                if (empl.isChangePassword)
+                {
+                    ViewBag.DivClass="";
+                }
+                else
+                {
+                    ViewBag.DivClass = "noVisible";
+                }
                 return View(empl);
             }
         }
