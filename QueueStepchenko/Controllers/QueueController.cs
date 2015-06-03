@@ -70,7 +70,7 @@ namespace QueueStepchenko.Controllers
 
        }
 
-
+       
         [System.Web.Mvc.Authorize(Roles = "client")]
         public PartialViewResult GetInQueue(int id)
         {
@@ -101,7 +101,7 @@ namespace QueueStepchenko.Controllers
             
         }
 
-       
+      
         public PartialViewResult GetOutQueue(int Id)
         {
             Operation operation =_queueRepository.GetOut(Id,StatesClient.GetOut);
@@ -130,7 +130,7 @@ namespace QueueStepchenko.Controllers
             return PartialView("Label");
         }
 
-
+      
         public PartialViewResult ListQueue()
         {
             return PartialView(_queueRepository.GetListInQueue());
@@ -261,7 +261,7 @@ namespace QueueStepchenko.Controllers
    
         }
 
-
+        
         [HttpGet]
         [System.Web.Mvc.Authorize(Roles = "employee")]
         public PartialViewResult RedirectClient()
@@ -281,6 +281,7 @@ namespace QueueStepchenko.Controllers
             }
         }
 
+       
         [HttpPost]
         [System.Web.Mvc.Authorize(Roles = "employee")]
         public PartialViewResult RedirectClient(int queueId, int Id)

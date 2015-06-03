@@ -334,5 +334,143 @@ namespace QueueStepchenko.Models
 
             return result;
         }
+
+
+        public ClientViewModel Get(string login)
+        {
+            if (string.IsNullOrEmpty(login))
+            {
+                throw new ArgumentException("Login is empty");
+            };
+
+            string conString = Methods.GetStringConnection();
+
+            SqlConnection connection = new SqlConnection(conString);
+
+            SqlCommand command = new SqlCommand("GetClient", connection);
+            command.Parameters.Add("@login", System.Data.SqlDbType.VarChar).Value = login;
+
+            command.CommandType = System.Data.CommandType.StoredProcedure;
+
+            connection.Open();
+
+            ClientViewModel client = new ClientViewModel();
+
+            using (connection)
+            {
+                SqlDataReader reader = command.ExecuteReader();
+
+                using (reader)
+                {
+                    if (reader.Read())
+                    {
+                        client.ClientId = Convert.ToInt32(reader["ClientId"]);
+                        client.Name = Convert.ToString(reader["Name"]);
+                        client.Email = Convert.ToString(reader["Email"]);
+                        client.Address = Convert.ToString(reader["Address"]);
+                        client.Phone = Convert.ToString(reader["Phone"]);
+                   }
+                }
+            };
+
+            return client;
+
+        }
+
+
+        public void SaveWithPassword(ClientViewModel client)
+        {
+            if (string.IsNullOrEmpty(client.Login))
+            {
+                throw new ArgumentException("Login is empty");
+            };
+
+            if (string.IsNullOrEmpty(client.Name))
+            {
+                throw new ArgumentException("Name is empty");
+            };
+
+            if (string.IsNullOrEmpty(client.Password))
+            {
+                throw new ArgumentException("Password is empty");
+            };
+
+            if (string.IsNullOrEmpty(client.Email))
+            {
+               client.Email = string.Empty;
+            };
+
+            if (string.IsNullOrEmpty(client.Address))
+            {
+                client.Address = string.Empty;
+            };
+
+            if (string.IsNullOrEmpty(client.Phone))
+            {
+                client.Phone = string.Empty;
+            };
+
+            string conString = Methods.GetStringConnection();
+
+            SqlConnection connection = new SqlConnection(conString);
+
+            SqlCommand command = new SqlCommand("SaveClientWithPassword", connection);
+            command.Parameters.Add("@id", System.Data.SqlDbType.Int).Value = client.ClientId;
+            command.Parameters.Add("@login", System.Data.SqlDbType.VarChar).Value = client.Login;
+            command.Parameters.Add("@name", System.Data.SqlDbType.VarChar).Value = client.Name;
+            command.Parameters.Add("@email", System.Data.SqlDbType.VarChar).Value = client.Email;
+            command.Parameters.Add("@address", System.Data.SqlDbType.VarChar).Value = client.Address;
+            command.Parameters.Add("@phone", System.Data.SqlDbType.VarChar).Value = client.Phone;
+
+            string salt = BCryptHelper.GenerateSalt();
+            string hash = BCryptHelper.HashPassword(client.Password, salt);
+
+            command.Parameters.Add("@salt", System.Data.SqlDbType.VarChar).Value = salt;
+            command.Parameters.Add("@password", System.Data.SqlDbType.VarChar).Value = hash;
+
+            command.CommandType = System.Data.CommandType.StoredProcedure;
+
+            connection.Open();
+
+            using (connection)
+            {
+                command.ExecuteNonQuery();
+            };
+            
+        }
+
+
+        public void Save(int ClientId, string Name, string Email, string Address, string Phone)
+        {
+            if (ClientId == 0)
+            {
+                throw new ArgumentException("ID is empty");
+            };
+
+            if (string.IsNullOrEmpty(Name))
+            {
+                throw new ArgumentException("Name is empty");
+            };
+
+            string conString = Methods.GetStringConnection();
+
+            SqlConnection connection = new SqlConnection(conString);
+
+            SqlCommand command = new SqlCommand("SaveClient", connection);
+            command.Parameters.Add("@id", System.Data.SqlDbType.Int).Value = ClientId;
+            command.Parameters.Add("@name", System.Data.SqlDbType.VarChar).Value = Name;
+            command.Parameters.Add("@email", System.Data.SqlDbType.VarChar).Value = Email;
+            command.Parameters.Add("@address", System.Data.SqlDbType.VarChar).Value = Address;
+            command.Parameters.Add("@phone", System.Data.SqlDbType.VarChar).Value = Phone;
+
+            command.CommandType = System.Data.CommandType.StoredProcedure;
+
+            connection.Open();
+
+            using (connection)
+            {
+                command.ExecuteNonQuery();
+            };
+        }
     }
 }

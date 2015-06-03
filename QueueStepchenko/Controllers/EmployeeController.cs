@@ -17,12 +17,13 @@ namespace QueueStepchenko.Controllers
             _employeeRepository = repo;
         }
 
-       
+        
         public PartialViewResult ListEmployees()
         {
             return PartialView(_employeeRepository.GetList());
         }
 
+       
         public PartialViewResult OperationsByEmployee(int id)
         {
             List<Operation> operations = _employeeRepository.GetOperationsById(id);
@@ -120,6 +121,9 @@ namespace QueueStepchenko.Controllers
         public ActionResult ProfileEmployee(string login)
         {
             EmployeeViewModel employee = _employeeRepository.Get(login);
+
+            employee.Login = login;
+
             ViewBag.DivClass = "noVisible";
 
             return View(employee);

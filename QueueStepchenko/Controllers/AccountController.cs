@@ -22,7 +22,7 @@ namespace QueueStepchenko.Controllers
             _employeeRepository = emplRepo;
         }
 
-
+       
         public PartialViewResult LoginPartial()
          {
              if (HttpContext.User.Identity.IsAuthenticated)
@@ -44,22 +44,27 @@ namespace QueueStepchenko.Controllers
 
          }
 
-        
-        
+
+      [HttpGet]
         public PartialViewResult Login()
         {
-            return PartialView();
+            UserViewModel usermodel = new UserViewModel();
+
+            return PartialView(usermodel);
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(UserViewModel usermodel)
+      public ActionResult Login(UserViewModel usermodel)
         {
+            string errorMessage = string.Empty;
+
             if (ModelState.IsValid)
             {
-                if(_userRepository.isVerifyPassword(usermodel.Login, usermodel.Password))
-                { 
-                    User user= _userRepository.LogInUser(usermodel.Login); 
+                if (_userRepository.isVerifyPassword(usermodel.Login, usermodel.Password))
+                {
+                    User user = _userRepository.LogInUser(usermodel.Login); 
 
                     FormsAuthentication.SetAuthCookie(user.Login, true);
 
@@ -73,16 +78,20 @@ namespace QueueStepchenko.Controllers
 
                         context.Clients.All.changeCountEmployees(json);
 
-                    };  
+                    };
+
                 }
                 else
                 {
-                    
-                     ModelState.AddModelError("", "Пользователя с таким логином и паролем нет");
+                    errorMessage = "Неверный логин или пароль";
                 }
             }
+            else
+            {
+                errorMessage = "Неверный логин или пароль";
+            }
 
-            return RedirectToAction("Index", "Home"); 
+            return RedirectToAction("Index", "Home", new { errorLogin = errorMessage }); 
         }
 
 
@@ -106,46 +115,85 @@ namespace QueueStepchenko.Controllers
         }
 
 
+        [HttpGet]
         public ActionResult Register()
         {
+            ClientViewModel client = new ClientViewModel();
 
-            return View();
+            return View(client);
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Register(RegisterModel model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        User user = null;
-        //        using (UserContext db = new UserContext())
-        //        {
-        //            user = db.Users.Where(u => u.Email == model.Name && u.Password == model.Password).FirstOrDefault();
-        //        }
-        //        if (user == null)
-        //        {
-        //            using (UserContext db = new UserContext())
-        //            {
-        //                db.Users.Add(new User { Email = model.Name, Password = model.Password, RoleId = 2 });
-        //                db.SaveChanges();
+        [HttpPost]
+        public ActionResult Register(ClientViewModel client)
+        {
+            ModelState.Remove("OldPassword");
 
-        //                user = db.Users.Where(u => u.Email == model.Name && u.Password == model.Password).FirstOrDefault();
-        //            }
-        //            if (user != null)
-        //            {
-        //                FormsAuthentication.SetAuthCookie(model.Name, true);
-        //                return RedirectToAction("Index", "Home");
-        //            }
-        //        }
-        //        else
-        //        {
-        //            ModelState.AddModelError("", "Пользователь с таким логином уже существует");
-        //        }
-        //    }
-        //    return View(model);
-        //}
+            if (ModelState.IsValid)
+            {
+                _userRepository.SaveWithPassword(client);
 
+                FormsAuthentication.SetAuthCookie(client.Login, true);
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View(client);
+            }
+        }
+
+        [HttpGet]
+        [System.Web.Mvc.Authorize(Roles = "client")]
+        public ActionResult ProfileClient(string login)
+        {
+            ClientViewModel client = _userRepository.Get(login);
+
+            client.Login = login;
+
+            ViewBag.DivClass = "noVisible";
+
+            return View(client);
+        }
+
+        [HttpPost]
+        [System.Web.Mvc.Authorize(Roles = "client")]
+        public ActionResult ProfileClient(ClientViewModel client)
+        {
+            if (!client.isChangePassword)
+            {
+                ModelState.Remove("OldPassword");
+                ModelState.Remove("Password");
+                ModelState.Remove("ConfirmPassword");
+            }
+
+            if (ModelState.IsValid)
+            {
+                if (client.isChangePassword)
+                {
+                     _userRepository.SaveWithPassword(client);
+                }
+                else
+                {
+                    _userRepository.Save(client.ClientId, client.Name, client.Email, client.Address,client.Phone);
+                };
+
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                if (client.isChangePassword)
+                {
+                    ViewBag.DivClass = "";
+                }
+                else
+                {
+                    ViewBag.DivClass = "noVisible";
+                }
+                return View(client);
+            }
+        }
+
+
+        
         public ActionResult LogOff()
         {
             if(HttpContext.User.IsInRole("employee"))

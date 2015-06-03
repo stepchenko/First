@@ -18,7 +18,7 @@ namespace QueueStepchenko.Controllers
             _queueRepository = queueRepo;
         }
 
-        
+     
         public PartialViewResult ListOperations()
         {
             List<Operation> Operations = _operationRepository.GetList();

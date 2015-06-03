@@ -346,6 +346,8 @@ namespace QueueStepchenko.Models
                  command.ExecuteNonQuery();
              };
          }
+
+
         public List<EmployeeViewModel> Delete(int id)
         {
             if (id == 0)

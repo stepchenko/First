@@ -18,5 +18,9 @@ namespace QueueStepchenko.Models
         bool isVerifyPassword(string login, string password);
         string[] GetRolesForUser(string login);
         bool isUserInRole(string login, string roleName);
+
+        ClientViewModel Get(string login);
+        void SaveWithPassword(ClientViewModel client);
+        void Save(int ClientId, string Name, string Email, string Address, string Phone);
     }
 }
