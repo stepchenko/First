@@ -92,4 +92,3 @@ D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\Newtonsoft.Json.xml
 D:\program\EPAM\QueueStepchenko\QueueStepchenko\obj\Debug\QueueStepchenko.dll
 D:\program\EPAM\QueueStepchenko\QueueStepchenko\obj\Debug\QueueStepchenko.pdb
 D:\program\EPAM\QueueStepchenko\QueueStepchenko\bin\DevOne.Security.Cryptography.BCrypt.dll
-D:\program\EPAM\QueueStepchenko\QueueStepchenko\obj\Debug\QueueStepchenko.csprojResolveAssemblyReference.cache

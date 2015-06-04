@@ -79,6 +79,12 @@ namespace QueueStepchenko.Controllers
 
             var context = GlobalHost.ConnectionManager.GetHubContext<QueueHub>();
 
+            string connectionId = _hub.GetConnectionIdByLogin(HttpContext.User.Identity.Name);
+            if (!string.IsNullOrEmpty(connectionId))
+            {
+                context.Clients.Client(connectionId).disabledBtnInQueue();
+            };
+
             if (queue.StateClient == StatesClient.Welcom)
             {
                 context.Clients.All.addClientInQueue(queue.PrevId, queue.Id, queue.Number, queue.Operation.Name,
@@ -87,11 +93,7 @@ namespace QueueStepchenko.Controllers
             }
             else
             {
-                string connectionId = _hub.GetConnectionIdByLogin(HttpContext.User.Identity.Name);
-                if (!string.IsNullOrEmpty(connectionId))
-                {
-                    context.Clients.Client(connectionId).disabledBtnInQueue();
-                };
+               
                 context.Clients.All.changeCountClients(queue.Operation.CountClients, queue.Operation.Id);
                 context.Clients.All.addClientInQueue(queue.PrevId, queue.Id, queue.Number, queue.Operation.Name,
                                                     queue.Client.Name, (queue.StateClient == StatesClient.WaitExtra), "queueWait");
