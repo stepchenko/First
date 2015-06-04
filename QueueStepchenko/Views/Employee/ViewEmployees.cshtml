@@ -1,0 +1,56 @@
+﻿@model IEnumerable<QueueStepchenko.Models.EmployeeViewModel>
+
+@{
+
+    Layout = "~/Views/Shared/_LayoutEdit.cshtml";
+
+}
+
+<div>
+    <h3>Сотрудники</h3>
+    <hr />
+</div>
+
+<p>
+    @Html.ActionLink("Добавить сотрудника", "RegisterEmployee")
+</p>
+<table class="table">
+    <tr class="trHeader">
+
+        <th class="largeFont">
+            @Html.DisplayNameFor(model => model.Login)
+        </th>
+        <th class="largeFont">
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th class="largeFont">
+            @Html.DisplayNameFor(model => model.Position)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr class="trHover">
+        <td class="largeFont">
+            @Html.DisplayFor(modelItem => item.Login)
+        </td>
+        <td class="largeFont">
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td class="largeFont">
+            @Html.DisplayFor(modelItem => item.Position)
+        </td>
+        <td>
+            @Html.ActionLink("Изменить", "EditEmployee", new { login = item.Login }) |
+            @Html.ActionLink("Удалить", "DeleteEmployee", new { id = item.EmployeeId })
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4" class="error">
+            @Html.DisplayFor(modelItem => item.ErrorMessage)
+        </td>
+    </tr>
+}
+
+</table>

@@ -15,11 +15,17 @@ namespace QueueStepchenko.Controllers
     {
         IRepositoryUser _userRepository;
         IRepositoryEmployee _employeeRepository;
+        IRepositoryQueue _queueRepository;
+        IQueueHub _hub;
 
-        public AccountController(IRepositoryUser userRepo, IRepositoryEmployee emplRepo) 
+        public AccountController(IRepositoryUser userRepo, IRepositoryEmployee emplRepo, IRepositoryQueue queueRepo, IQueueHub hub) 
         {
             _userRepository = userRepo;
             _employeeRepository = emplRepo;
+            
+            _queueRepository = queueRepo;
+            _hub = hub;
+
         }
 
        
@@ -196,18 +202,51 @@ namespace QueueStepchenko.Controllers
         
         public ActionResult LogOff()
         {
-            if(HttpContext.User.IsInRole("employee"))
+            Queue queue = _queueRepository.GetQueue(HttpContext.User.Identity.Name);
+
+            int userId = _userRepository.LogOffUser(HttpContext.User.Identity.Name);
+
+            var context = GlobalHost.ConnectionManager.GetHubContext<QueueHub>();
+
+            bool isEmployee = HttpContext.User.IsInRole("employee");
+
+            if(isEmployee)
             {
-                var context = GlobalHost.ConnectionManager.GetHubContext<QueueHub>();
-                int userId = _userRepository.LogOffUser(HttpContext.User.Identity.Name);
                 context.Clients.All.changeClass("#id_" + userId, "employeeOffLink");
 
                 string json = ListOperationsToJson(userId);
 
                 context.Clients.All.changeCountEmployees(json);
-            }
-           
+            };
 
+            if (queue != null && queue.Id > 0 && queue.StateClient != StatesClient.NoClient)
+            {
+                context.Clients.All.removeClientFromQueue(queue.Id);
+
+                if (isEmployee) 
+                {
+                    string connectionIdClient = _hub.GetConnectionIdByLogin(queue.Client.Login);
+                    if (!string.IsNullOrEmpty(connectionIdClient))
+                    {
+                        context.Clients.Client(connectionIdClient).addMessageClient("Обслуживание завершено");
+                    };
+
+                }
+                else
+                {
+                    context.Clients.All.changeCountClients(queue.Operation.CountClients, queue.Operation.Id);
+
+                    if(queue.Employee!=null && queue.Employee.EmployeeId>0)
+                    {
+                        string connectionIdEmployee = _hub.GetConnectionIdByLogin(queue.Employee.Login);
+                        if (!string.IsNullOrEmpty(connectionIdEmployee))
+                        {
+                            context.Clients.Client(connectionIdEmployee).addMessageEmployee("Клиент покинул очередь");
+                        };
+                    }
+                }
+            };
+            
             FormsAuthentication.SignOut();
 
             return RedirectToAction("Index", "Home");

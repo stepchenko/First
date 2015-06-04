@@ -1,0 +1,76 @@
+﻿@model QueueStepchenko.Models.Queue
+
+
+<table >
+
+    <tr>
+        <td class="first">
+            <h3>
+                N
+                @Html.DisplayTextFor(model => model.Number)
+                <br />
+            </h3>
+            <h4>
+                @Html.DisplayTextFor(model => model.Operation.Name)
+            </h4>
+
+            <h5>
+                Ожидают клиентов:
+                <span id="clientsInHead_@Model.Operation.Id">
+                    @Html.DisplayTextFor(model => model.Operation.CountClients)
+                </span>
+                <br />
+
+            </h5>
+        </td>
+        <td class="second">
+            <div id="callClient" class="form-horizontal">
+                @switch (Model.StateClient)
+                {
+                    case QueueStepchenko.Models.StatesClient.Servicing:
+                        <h4> Вас обслуживает сотрудник: @Model.Employee.Name <br/><br/>
+                        </h4>
+                        break;
+                    case QueueStepchenko.Models.StatesClient.Welcom:
+                       <h4> Вас приглашает сотрудник: @Model.Employee.Name <br/><br/>
+                        <span id="numberCall"></span></h4>
+                        break;
+                    default:
+                        <h4>Дождитесь приглашения сотрудника</h4>
+                        break;
+                } 
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @using (Ajax.BeginForm("GetOutQueue", "Queue", new { id = Model.Id },
+                            new AjaxOptions { UpdateTargetId = "DivMain" }))
+            {
+                <input type="submit" value="Из очереди" class="btn btn-default" />
+            }
+        </td>
+        <td>
+            @using (Ajax.BeginForm("Accept", "Queue", new { id = Model.Id },
+                            new AjaxOptions { }))
+            {
+                if (Model.StateClient == QueueStepchenko.Models.StatesClient.Welcom)
+                {
+                    <input id="BtnAccept" type="submit" value="Принять" class="btn btn-default" />
+                }
+                else
+                {
+                    <input id="BtnAccept"type="submit" value="Принять" class="noVisible" />
+                }
+
+            }
+        </td>
+    </tr>
+    
+   
+</table>
+
+@using (Ajax.BeginForm("Main", "Queue", new AjaxOptions { UpdateTargetId = "DivMain" }))
+{
+    <input id="refreshClient" type="submit" value="refresh" class="noVisible" />
+}

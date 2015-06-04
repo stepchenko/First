@@ -104,8 +104,9 @@ namespace QueueStepchenko.Controllers
       
         public PartialViewResult GetOutQueue(int Id)
         {
-            Operation operation =_queueRepository.GetOut(Id,StatesClient.GetOut);
+            _queueRepository.GetOut(Id,StatesClient.GetOut);
 
+            Operation operation = _queueRepository.GetCountClientsInQueue(Id);
 
             string connectionId = _hub.GetConnectionIdByLogin(HttpContext.User.Identity.Name);
             var context = GlobalHost.ConnectionManager.GetHubContext<QueueHub>();
@@ -144,7 +145,6 @@ namespace QueueStepchenko.Controllers
             {
                 return;
             };
-
             
             Queue queue = _queueRepository.CallClient(HttpContext.User.Identity.Name);
 
@@ -164,6 +164,7 @@ namespace QueueStepchenko.Controllers
                 CallClientTimer(queue);
             }
         }
+
 
         private void CallClientTimer(Queue queue)
         {
@@ -190,30 +191,17 @@ namespace QueueStepchenko.Controllers
 
             TimerCallback TimerDelegate = new TimerCallback(TimerTask);
 
-            // Create a timer that calls a procedure every 2 seconds.
-            // Note: There is no Start method; the timer starts running as soon as 
-            // the instance is created.
             Timer TimerItem = new Timer(TimerDelegate, StateObj, 500, queue.TimeCall * 1000);
 
-            // Save a reference for Dispose.
             StateObj.TimerReference = TimerItem;
 
-            //// Run for ten loops.
-            //while (StateObj.SomeValue < 10)
-            //{
-            //    // Wait one second.
-            //    System.Threading.Thread.Sleep(1000);
-            //}
-
-            //// Request Dispose of the timer object.
-            //StateObj.TimerCanceled = true;
         }
 
 
         private void TimerTask(object StateObj)
         {
             TimerObjClass State = (TimerObjClass)StateObj;
-            // Use the interlocked class to increment the counter variable.
+            
             Interlocked.Increment(ref State.NumberCall);
 
             StatesClient stateClient = _queueRepository.GetStateClient(State.Queue.Id);
@@ -227,7 +215,7 @@ namespace QueueStepchenko.Controllers
                 {
                     State.TimerReference.Dispose();
 
-                    Operation operation = _queueRepository.GetOut(State.Queue.Id, StatesClient.GetOut);
+                    _queueRepository.GetOut(State.Queue.Id, StatesClient.GetOut);
 
                     string connectionIdEmployee = _hub.GetConnectionIdByLogin(State.Queue.Employee.Login);
                     if (!string.IsNullOrEmpty(connectionIdEmployee))
@@ -312,23 +300,27 @@ namespace QueueStepchenko.Controllers
         {
             Queue queue = _queueRepository.GetQueue(HttpContext.User.Identity.Name);
 
-            if (queue.StateClient == StatesClient.Servicing || queue.StateClient == StatesClient.Welcom)
+            if (queue != null && queue.Id > 0)
             {
-                Operation operation = _queueRepository.GetOut(queue.Id, StatesClient.Serviced);
-
-                var context = GlobalHost.ConnectionManager.GetHubContext<QueueHub>();
-                context.Clients.All.removeClientFromQueue(queue.Id);
-
-                string connectionIdEmployee = _hub.GetConnectionIdByLogin(HttpContext.User.Identity.Name);
-                context.Clients.Client(connectionIdEmployee).addMessageEmployee("Обслуживание клиента завершено");
-
-                string connectionIdClient = _hub.GetConnectionIdByLogin(queue.Client.Login);
-                if (!string.IsNullOrEmpty(connectionIdClient))
+                if (queue.StateClient == StatesClient.Servicing || queue.StateClient == StatesClient.Welcom)
                 {
-                    context.Clients.Client(connectionIdClient).addMessageClient("Обслуживание завершено");
+
+                    var context = GlobalHost.ConnectionManager.GetHubContext<QueueHub>();
+                    context.Clients.All.removeClientFromQueue(queue.Id);
+
+                    string connectionIdEmployee = _hub.GetConnectionIdByLogin(HttpContext.User.Identity.Name);
+                    context.Clients.Client(connectionIdEmployee).addMessageEmployee("Обслуживание клиента завершено");
+
+                    string connectionIdClient = _hub.GetConnectionIdByLogin(queue.Client.Login);
+                    if (!string.IsNullOrEmpty(connectionIdClient))
+                    {
+                        context.Clients.Client(connectionIdClient).addMessageClient("Обслуживание завершено");
+                    };
+
                 };
 
-            };
+                _queueRepository.GetOut(queue.Id, StatesClient.Serviced);
+            }
             
         }
 

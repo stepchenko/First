@@ -35,7 +35,7 @@ namespace QueueStepchenko.Models
             return ParseQueue("GetInQueue",parameters);
         }
 
-        public Operation GetOut(int queueId, StatesClient stateClient)
+        public void GetOut(int queueId, StatesClient stateClient)
         {
             if (queueId == 0)
             {
@@ -59,6 +59,33 @@ namespace QueueStepchenko.Models
          
             connection.Open();
 
+            using (connection)
+            {
+                command.ExecuteNonQuery();
+                
+            };
+
+        }
+
+
+        public Operation GetCountClientsInQueue(int queueId)
+        {
+            if (queueId == 0)
+            {
+                throw new ArgumentException("OperationQueueId is empty");
+            };
+
+            string conString = Methods.GetStringConnection();
+
+            SqlConnection connection = new SqlConnection(conString);
+
+            SqlCommand command = new SqlCommand("GetCountClientsInQueue", connection);
+            command.CommandType = System.Data.CommandType.StoredProcedure;
+
+            command.Parameters.Add("@queueId", System.Data.SqlDbType.Int).Value = queueId;
+            
+            connection.Open();
+
             Operation operation = new Operation();
 
             using (connection)
@@ -69,9 +96,7 @@ namespace QueueStepchenko.Models
                     if (reader.Read())
                     {
                         operation.Id = Convert.ToInt32(reader["Id"]);
-                        operation.Name = Convert.ToString(reader["Name"]);
                         operation.CountClients = Convert.ToInt32(reader["countClients"]);
-                        operation.CountEmployees = Convert.ToInt32(reader["countEmployees"]);
                     }
                 }
             };

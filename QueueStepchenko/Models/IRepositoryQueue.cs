@@ -9,9 +9,10 @@ namespace QueueStepchenko.Models
     public interface IRepositoryQueue
     {
         Queue GetIn(string clientLogin, int id, StatesClient stateClient);
-        Operation GetOut(int queueId, StatesClient stateClient);
+        void GetOut(int queueId, StatesClient stateClient);
+        Operation GetCountClientsInQueue(int queueId);
         List<Queue> GetListInQueue();
-        Queue GetQueue(string clientLogin);
+        Queue GetQueue(string Login);
         Queue CallClient(string login);
         bool isCurrentUserInQueue(string login);
         Queue RedirectClient(int queueId, int newOperationId);
