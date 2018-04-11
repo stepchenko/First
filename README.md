@@ -1,2 +1,2 @@
 # First
-Epam training 2015 project
+Epam training 2015 project.
